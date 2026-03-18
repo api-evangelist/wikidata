@@ -1,6 +1,60 @@
 aid: wikidata
 url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/apis.yml
 apis:
+- aid: wikidata:wikidata-sparql-api
+  name: Wikidata SPARQL Query Service API
+  tags:
+  - Knowledge Graph
+  - SPARQL
+  - Linked Data
+  - Open Data
+  image: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/image.png
+  humanURL: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
+  baseURL: https://query.wikidata.org/sparql
+  properties:
+  - url: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
+    type: Documentation
+  - url: https://query.wikidata.org/
+    type: DeveloperTools
+  description: >-
+    The Wikidata SPARQL Query Service provides a public SPARQL 1.1 endpoint for querying the Wikidata knowledge graph. Supports complex entity lookups, relationship traversal, federated queries, and structured data export covering millions of entities across people, organizations, places, and concepts.
+
+- aid: wikidata:wikidata-mediawiki-api
+  name: Wikidata MediaWiki API
+  tags:
+  - Knowledge Graph
+  - Linked Data
+  - Open Data
+  - MediaWiki
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/image.png
+  humanURL: https://www.wikidata.org/w/api.php
+  baseURL: https://www.wikidata.org/w/api.php
+  properties:
+  - url: https://www.wikidata.org/w/api.php
+    type: Documentation
+  - url: https://www.wikidata.org/wiki/Special:ApiHelp/main
+    type: Reference
+  description: >-
+    The Wikidata MediaWiki API provides programmatic access to Wikidata content including entity retrieval, editing, searching, and administrative operations. Supports reading and writing Wikidata items and properties using the wikibase data model.
+
+- aid: wikidata:wikidata-linked-data-api
+  name: Wikidata Linked Data API
+  tags:
+  - Knowledge Graph
+  - Linked Data
+  - RDF
+  - JSON-LD
+  - Open Data
+  image: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/image.png
+  humanURL: https://www.wikidata.org/wiki/Wikidata:Data_access
+  baseURL: https://www.wikidata.org/wiki/Special:EntityData
+  properties:
+  - url: https://www.wikidata.org/wiki/Wikidata:Data_access
+    type: Documentation
+  description: >-
+    The Wikidata Linked Data API provides entity data in multiple RDF serialization formats including JSON-LD, Turtle, N-Triples, and RDF/XML via the Special:EntityData endpoint. Enables content negotiation for Linked Data access to any Wikidata item or property.
+
 - aid: wikidata:wikidata-api
   name: Wikidata / DBpedia SPARQL API
   tags:
@@ -16,3 +70,25 @@ apis:
     type: Documentation
   description: >-
     Wikidata and DBpedia provide SPARQL endpoints for structured knowledge graph queries. APIs enable entity lookup, relationship traversal, property retrieval, and structured data export covering people, organizations, places, and concepts across the Wikimedia knowledge base.
+
+common:
+- url: https://www.wikidata.org/
+  type: Website
+- url: https://www.wikidata.org/wiki/Wikidata:Data_access
+  type: Portal
+- url: https://www.wikidata.org/wiki/Wikidata:Data_access
+  type: Documentation
+- url: https://www.wikidata.org/wiki/Wikidata:Data_access
+  type: GettingStarted
+- url: https://query.wikidata.org/
+  type: DeveloperTools
+- url: https://foundation.wikimedia.org/wiki/Policy:Privacy_policy
+  type: PrivacyPolicy
+- url: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use
+  type: TermsOfService
+
+maintainers:
+- name: Kin Lane
+  email: kin@apievangelist.com
+
+modified: '2026-03-18'
