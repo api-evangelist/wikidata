@@ -1,0 +1,619 @@
+openapi: 3.1.0
+info:
+  title: Wikidata REST API & MediaWiki API
+  description: >-
+    Wikidata provides multiple APIs for accessing its structured knowledge graph.
+    The Wikibase REST API (OpenAPI-based) provides entity read/write operations.
+    The MediaWiki Action API provides entity retrieval, editing, and search via
+    the wbgetentities, wbsearchentities, and wbeditentity actions.
+    The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.
+  version: "1.0"
+  contact:
+    name: Wikidata Support
+    url: https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team
+  license:
+    name: CC0 1.0 Universal (Public Domain)
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+  - url: https://www.wikidata.org/w/rest.php/wikibase/v0
+    description: Wikibase REST API (Beta)
+  - url: https://www.wikidata.org/w/api.php
+    description: MediaWiki Action API
+
+tags:
+  - name: Items
+    description: Wikidata item (Q-entity) operations
+  - name: Properties
+    description: Wikidata property (P-entity) operations
+  - name: Statements
+    description: Statement (claim) operations
+  - name: Labels
+    description: Label management
+  - name: Descriptions
+    description: Description management
+  - name: Aliases
+    description: Alias management
+  - name: Search
+    description: Entity search
+
+paths:
+  /entities/items/{item_id}:
+    get:
+      operationId: getItem
+      summary: Get a Wikidata item
+      description: >-
+        Returns a Wikidata item (Q-entity) with all its labels, descriptions,
+        aliases, sitelinks, and statements in JSON format.
+      tags:
+        - Items
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/IfNoneMatch'
+      responses:
+        '200':
+          description: Wikidata item
+          headers:
+            ETag:
+              schema:
+                type: string
+              description: Item revision ETag
+            Last-Modified:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '304':
+          description: Not modified (ETag match)
+        '404':
+          description: Item not found
+
+    patch:
+      operationId: patchItem
+      summary: Update a Wikidata item
+      description: >-
+        Applies a JSON patch to update an item. Requires authentication via
+        OAuth2 or bot password. Includes edit comment and tags.
+      tags:
+        - Items
+      security:
+        - OAuth2: []
+        - MediaWikiSession: []
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Invalid patch
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden (permissions insufficient)
+        '409':
+          description: Edit conflict — base revision mismatch
+
+  /entities/items:
+    post:
+      operationId: createItem
+      summary: Create a new Wikidata item
+      description: Creates a new Wikidata item with provided labels, descriptions, aliases, and statements.
+      tags:
+        - Items
+      security:
+        - OAuth2: []
+        - MediaWikiSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Invalid item data
+        '401':
+          description: Unauthorized
+
+  /entities/items/{item_id}/labels/{language_code}:
+    get:
+      operationId: getItemLabel
+      summary: Get a label for an item
+      description: Returns the label for a Wikidata item in a specific language.
+      tags:
+        - Labels
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/LanguageCode'
+      responses:
+        '200':
+          description: Label value
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Douglas Adams"
+        '404':
+          description: Label not found for this language
+
+    put:
+      operationId: setItemLabel
+      summary: Set a label for an item
+      description: Sets or replaces the label for a Wikidata item in the specified language.
+      tags:
+        - Labels
+      security:
+        - OAuth2: []
+        - MediaWikiSession: []
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/LanguageCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - label
+              properties:
+                label:
+                  type: string
+                comment:
+                  type: string
+                  description: Edit summary
+                bot:
+                  type: boolean
+      responses:
+        '200':
+          description: Label updated
+        '201':
+          description: Label created
+
+  /entities/items/{item_id}/descriptions/{language_code}:
+    get:
+      operationId: getItemDescription
+      summary: Get a description for an item
+      description: Returns the description for a Wikidata item in a specific language.
+      tags:
+        - Descriptions
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/LanguageCode'
+      responses:
+        '200':
+          description: Description value
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Description not found
+
+  /entities/items/{item_id}/statements:
+    get:
+      operationId: getItemStatements
+      summary: Get statements for an item
+      description: >-
+        Returns all statements (claims) for a Wikidata item, optionally filtered
+        by property. Statements include main snak, qualifiers, and references.
+      tags:
+        - Statements
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+        - name: property
+          in: query
+          schema:
+            type: string
+            pattern: '^P\d+$'
+          description: Filter statements by property ID
+          example: "P31"
+      responses:
+        '200':
+          description: Item statements
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Statement'
+        '404':
+          description: Item not found
+
+    post:
+      operationId: addItemStatement
+      summary: Add a statement to an item
+      description: Adds a new statement (claim) to a Wikidata item.
+      tags:
+        - Statements
+      security:
+        - OAuth2: []
+        - MediaWikiSession: []
+      parameters:
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatementCreate'
+      responses:
+        '201':
+          description: Statement added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+
+  /statements/{statement_id}:
+    get:
+      operationId: getStatement
+      summary: Get a single statement
+      description: Returns a single statement by its globally unique statement ID.
+      tags:
+        - Statements
+      parameters:
+        - name: statement_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Statement ID (Q{itemId}${guid})
+          example: "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9"
+      responses:
+        '200':
+          description: Statement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+
+    delete:
+      operationId: deleteStatement
+      summary: Delete a statement
+      description: Removes a statement from its parent item.
+      tags:
+        - Statements
+      security:
+        - OAuth2: []
+        - MediaWikiSession: []
+      parameters:
+        - name: statement_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: Edit summary
+      responses:
+        '200':
+          description: Statement deleted
+        '404':
+          description: Statement not found
+
+  /entities/properties/{property_id}:
+    get:
+      operationId: getProperty
+      summary: Get a Wikidata property
+      description: Returns a Wikidata property (P-entity) with labels, descriptions, and statements.
+      tags:
+        - Properties
+      parameters:
+        - name: property_id
+          in: path
+          required: true
+          description: Wikidata property ID
+          schema:
+            type: string
+            pattern: '^P\d+$'
+          example: "P31"
+      responses:
+        '200':
+          description: Property details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        '404':
+          description: Property not found
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+          tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+          scopes:
+            editpage: Edit Wikidata items
+            createeditmovepage: Create new items
+    MediaWikiSession:
+      type: apiKey
+      in: cookie
+      name: wikidataSession
+
+  parameters:
+    ItemId:
+      name: item_id
+      in: path
+      required: true
+      description: Wikidata item ID
+      schema:
+        type: string
+        pattern: '^Q\d+$'
+      example: "Q42"
+    LanguageCode:
+      name: language_code
+      in: path
+      required: true
+      description: BCP 47 language code
+      schema:
+        type: string
+      example: "en"
+    IfNoneMatch:
+      name: If-None-Match
+      in: header
+      schema:
+        type: string
+      description: ETag for conditional request
+
+  schemas:
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: '^Q\d+$'
+          description: Wikidata item ID
+          example: "Q42"
+        type:
+          type: string
+          enum: [item]
+        labels:
+          type: object
+          description: Labels keyed by language code
+          additionalProperties:
+            type: string
+          example:
+            en: "Douglas Adams"
+            fr: "Douglas Adams"
+        descriptions:
+          type: object
+          description: Descriptions keyed by language code
+          additionalProperties:
+            type: string
+        aliases:
+          type: object
+          description: Aliases keyed by language code
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        statements:
+          type: object
+          description: Statements keyed by property ID
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Statement'
+        sitelinks:
+          type: object
+          description: Sitelinks to Wikipedia and Wikimedia projects
+          additionalProperties:
+            $ref: '#/components/schemas/Sitelink'
+
+    ItemCreate:
+      type: object
+      properties:
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+        aliases:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        statements:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/StatementCreate'
+        comment:
+          type: string
+          description: Edit summary
+        bot:
+          type: boolean
+          default: false
+
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: '^P\d+$'
+          example: "P31"
+        type:
+          type: string
+          enum: [property]
+        datatype:
+          type: string
+          enum: [wikibase-item, wikibase-property, string, monolingualtext, multilingual-text, quantity, time, globe-coordinate, url, commonsMedia, external-id, math, geo-shape, tabular-data, musical-notation, lexeme, sense, form]
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+
+    Statement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique statement ID
+        rank:
+          type: string
+          enum: [preferred, normal, deprecated]
+        property:
+          type: object
+          properties:
+            id:
+              type: string
+              pattern: '^P\d+$'
+        value:
+          $ref: '#/components/schemas/DataValue'
+        qualifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: object
+                properties:
+                  id:
+                    type: string
+              value:
+                $ref: '#/components/schemas/DataValue'
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              hash:
+                type: string
+              parts:
+                type: array
+                items:
+                  type: object
+
+    StatementCreate:
+      type: object
+      required:
+        - property
+        - value
+      properties:
+        property:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              pattern: '^P\d+$'
+        value:
+          $ref: '#/components/schemas/DataValue'
+        rank:
+          type: string
+          enum: [preferred, normal, deprecated]
+          default: normal
+        qualifiers:
+          type: array
+          items:
+            type: object
+        references:
+          type: array
+          items:
+            type: object
+        comment:
+          type: string
+
+    DataValue:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [value, somevalue, novalue]
+        content:
+          description: Value content — depends on property datatype
+          oneOf:
+            - type: string
+            - type: number
+            - type: object
+            - type: "null"
+
+    Sitelink:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Wikipedia article title
+        url:
+          type: string
+          format: uri
+        badges:
+          type: array
+          items:
+            type: string
+            description: Featured/Good article badges
+
+    PatchRequest:
+      type: object
+      required:
+        - patch
+      properties:
+        patch:
+          type: array
+          description: JSON Patch operations (RFC 6902)
+          items:
+            type: object
+            required:
+              - op
+              - path
+            properties:
+              op:
+                type: string
+                enum: [add, remove, replace, move, copy, test]
+              path:
+                type: string
+              value:
+                description: New value for add/replace operations
+              from:
+                type: string
+                description: Source path for move/copy operations
+        comment:
+          type: string
+          description: Edit summary
+        tags:
+          type: array
+          items:
+            type: string
+          description: Change tags to apply
+        bot:
+          type: boolean
+          default: false

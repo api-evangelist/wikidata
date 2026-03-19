@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "wd": "http://www.wikidata.org/entity/",
+    "wdt": "http://www.wikidata.org/prop/direct/",
+    "wikibase": "http://wikiba.se/ontology#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+
+    "Item": "wikibase:Item",
+    "Property": "wikibase:Property",
+    "Statement": "wikibase:Statement",
+    "Reference": "wikibase:Reference",
+    "BestRank": "wikibase:BestRank",
+
+    "id": "@id",
+    "type": "@type",
+    "labels": {
+      "@id": "rdfs:label",
+      "@container": "@language"
+    },
+    "descriptions": {
+      "@id": "schema:description",
+      "@container": "@language"
+    },
+    "aliases": {
+      "@id": "skos:altLabel",
+      "@container": "@language"
+    },
+    "statements": "wikibase:statements",
+    "sitelinks": "schema:sameAs",
+
+    "datatype": {
+      "@id": "wikibase:propertyType",
+      "@type": "@id"
+    },
+    "lastrevid": "schema:version",
+    "modified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "rank": "wikibase:rank",
+    "property": {
+      "@id": "wikibase:directClaim",
+      "@type": "@id"
+    },
+    "qualifiers": "wikibase:qualifier",
+    "references": "prov:wasDerivedFrom",
+
+    "title": "rdfs:label",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "badges": "wikibase:badge",
+
+    "P31": "wdt:P31",
+    "P279": "wdt:P279",
+    "P18": "wdt:P18",
+    "P569": "wdt:P569",
+    "P570": "wdt:P570",
+    "P21": "wdt:P21",
+    "P17": "wdt:P17",
+    "P625": "wdt:P625",
+    "P856": "wdt:P856",
+    "P131": "wdt:P131"
+  }
+}

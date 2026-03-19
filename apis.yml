@@ -35,6 +35,8 @@ apis:
     type: Documentation
   - url: https://www.wikidata.org/wiki/Special:ApiHelp/main
     type: Reference
+  - url: openapi/wikidata-mediawiki-openapi.yml
+    type: OpenAPI
   description: >-
     The Wikidata MediaWiki API provides programmatic access to Wikidata content including entity retrieval, editing, searching, and administrative operations. Supports reading and writing Wikidata items and properties using the wikibase data model.
 
@@ -52,6 +54,8 @@ apis:
   properties:
   - url: https://www.wikidata.org/wiki/Wikidata:Data_access
     type: Documentation
+  - url: openapi/wikidata-mediawiki-openapi.yml
+    type: OpenAPI
   description: >-
     The Wikidata Linked Data API provides entity data in multiple RDF serialization formats including JSON-LD, Turtle, N-Triples, and RDF/XML via the Special:EntityData endpoint. Enables content negotiation for Linked Data access to any Wikidata item or property.
 
@@ -86,6 +90,10 @@ common:
   type: PrivacyPolicy
 - url: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use
   type: TermsOfService
+- url: json-schema/wikidata-entity-schema.json
+  type: JSONSchema
+- url: json-ld/wikidata-context.jsonld
+  type: JSONLDContext
 
 maintainers:
 - name: Kin Lane
