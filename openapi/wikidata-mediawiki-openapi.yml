@@ -21,21 +21,16 @@ servers:
     description: MediaWiki Action API
 
 tags:
+  - name: Descriptions
+    description: Description management
   - name: Items
     description: Wikidata item (Q-entity) operations
+  - name: Labels
+    description: Label management
   - name: Properties
     description: Wikidata property (P-entity) operations
   - name: Statements
     description: Statement (claim) operations
-  - name: Labels
-    description: Label management
-  - name: Descriptions
-    description: Description management
-  - name: Aliases
-    description: Alias management
-  - name: Search
-    description: Entity search
-
 paths:
   /entities/items/{item_id}:
     get:
