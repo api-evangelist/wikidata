@@ -1,0 +1,231 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Wikidata Knowledge Graph Access"
+  description: >-
+    Unified capability for reading and writing to the Wikidata knowledge graph.
+    Combines Wikibase REST API operations for entity retrieval, statement management,
+    and structured data writing. Intended for data engineers, knowledge graph analysts,
+    and AI/ML pipelines that need programmatic access to Wikidata's 100M+ entities.
+  tags:
+    - Wikidata
+    - Knowledge Graph
+    - Linked Data
+    - Semantic Web
+    - Open Data
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WIKIDATA_OAUTH_TOKEN: WIKIDATA_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - import: wikibase-rest
+      location: ./shared/wikibase-rest-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: wikidata-knowledge-graph-api
+      description: "Unified REST API for Wikidata knowledge graph access and editing."
+      resources:
+        - path: /v1/entities/items
+          name: items
+          description: "Wikidata items (Q-entities)"
+          operations:
+            - method: POST
+              name: create-item
+              description: "Create a new Wikidata item"
+              call: "wikibase-rest.create-item"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/entities/items/{item_id}
+          name: item
+          description: "Single Wikidata item"
+          operations:
+            - method: GET
+              name: get-item
+              description: "Get a Wikidata item by Q-ID"
+              call: "wikibase-rest.get-item"
+              with:
+                item_id: "rest.item_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/entities/items/{item_id}/labels/{language_code}
+          name: item-label
+          description: "Item labels by language"
+          operations:
+            - method: GET
+              name: get-item-label
+              description: "Get label for an item in a specific language"
+              call: "wikibase-rest.get-item-label"
+              with:
+                item_id: "rest.item_id"
+                language_code: "rest.language_code"
+              outputParameters:
+                - type: string
+                  mapping: "$."
+
+        - path: /v1/entities/items/{item_id}/statements
+          name: item-statements
+          description: "Statements (claims) for an item"
+          operations:
+            - method: GET
+              name: get-item-statements
+              description: "Get all statements for an item"
+              call: "wikibase-rest.get-item-statements"
+              with:
+                item_id: "rest.item_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: add-item-statement
+              description: "Add a statement to an item"
+              call: "wikibase-rest.add-item-statement"
+              with:
+                item_id: "rest.item_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/statements/{statement_id}
+          name: statement
+          description: "Individual statement operations"
+          operations:
+            - method: GET
+              name: get-statement
+              description: "Get a statement by ID"
+              call: "wikibase-rest.get-statement"
+              with:
+                statement_id: "rest.statement_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: DELETE
+              name: delete-statement
+              description: "Delete a statement"
+              call: "wikibase-rest.delete-statement"
+              with:
+                statement_id: "rest.statement_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/entities/properties/{property_id}
+          name: property
+          description: "Wikidata properties (P-entities)"
+          operations:
+            - method: GET
+              name: get-property
+              description: "Get a property by P-ID"
+              call: "wikibase-rest.get-property"
+              with:
+                property_id: "rest.property_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: wikidata-knowledge-graph-mcp
+      transport: http
+      description: "MCP server for AI-assisted Wikidata knowledge graph access and enrichment."
+      tools:
+        - name: get-entity
+          description: "Retrieve a Wikidata entity (item or property) with all labels, descriptions, aliases, sitelinks, and statements by Q-ID or P-ID."
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "wikibase-rest.get-item"
+          with:
+            item_id: "tools.entity_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-entity-statements
+          description: "Retrieve structured factual claims (statements) for a Wikidata entity, optionally filtered by property ID (e.g. P31 for 'instance of')."
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "wikibase-rest.get-item-statements"
+          with:
+            item_id: "tools.item_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-entity-label
+          description: "Retrieve the label for a Wikidata entity in a specific language by BCP 47 language code."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "wikibase-rest.get-item-label"
+          with:
+            item_id: "tools.item_id"
+            language_code: "tools.language_code"
+          outputParameters:
+            - type: string
+              mapping: "$."
+
+        - name: get-property-definition
+          description: "Retrieve a Wikidata property definition including its datatype, labels, and descriptions. Useful for understanding what a P-ID represents."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "wikibase-rest.get-property"
+          with:
+            property_id: "tools.property_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-entity
+          description: "Create a new Wikidata item with labels, descriptions, aliases, and initial statements. Requires OAuth2 authentication."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "wikibase-rest.create-item"
+          with:
+            labels: "tools.labels"
+            descriptions: "tools.descriptions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: add-fact
+          description: "Add a new factual statement (claim) to a Wikidata item. Specify the property P-ID and value. Requires OAuth2 authentication."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "wikibase-rest.add-item-statement"
+          with:
+            item_id: "tools.item_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: remove-fact
+          description: "Delete an incorrect or outdated statement from a Wikidata item by statement ID. Requires OAuth2 authentication."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "wikibase-rest.delete-statement"
+          with:
+            statement_id: "tools.statement_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

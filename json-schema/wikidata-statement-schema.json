@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-statement-schema.json",
+  "title": "Statement",
+  "description": "Statement schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Globally unique statement ID"
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "preferred",
+        "normal",
+        "deprecated"
+      ]
+    },
+    "property": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^P\\d+$"
+        }
+      }
+    },
+    "value": {
+      "$ref": "#/components/schemas/DataValue"
+    },
+    "qualifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            }
+          },
+          "value": {
+            "$ref": "#/components/schemas/DataValue"
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}

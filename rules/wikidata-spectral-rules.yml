@@ -1,0 +1,293 @@
+rules:
+
+  # INFO / METADATA
+  info-title-required:
+    description: API info must have a title
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+
+  info-description-required:
+    description: API info must have a description with sufficient detail
+    severity: warn
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: API info must have a version
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  info-contact-required:
+    description: API info should have contact information
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  info-license-required:
+    description: Open data APIs must declare their license (CC0 for Wikidata)
+    severity: warn
+    given: $.info
+    then:
+      field: license
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3:
+    description: All Wikidata specs must use OpenAPI 3.x
+    severity: error
+    given: $
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\."
+
+  # SERVERS
+  servers-defined:
+    description: Servers array must be defined
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  servers-https:
+    description: Server URLs must use HTTPS
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-description:
+    description: Each server must have a description
+    severity: warn
+    given: $.servers[*]
+    then:
+      field: description
+      function: truthy
+
+  # PATHS — NAMING CONVENTIONS
+  paths-kebab-case:
+    description: Path segments must use kebab-case
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9{}-]+((/[a-z0-9{}-]+)*)?)$"
+
+  paths-no-trailing-slash:
+    description: Paths must not end with a trailing slash
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: All operations must have a summary
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: summary
+      function: truthy
+
+  operation-description-required:
+    description: All operations should have a description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: description
+      function: truthy
+
+  operation-operation-id-required:
+    description: All operations must have an operationId
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operation-id-camel-case:
+    description: operationId must use camelCase
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete,head,options].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  operation-tags-required:
+    description: All operations must have at least one tag
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: tags
+      function: truthy
+
+  operation-summary-wikidata-prefix:
+    description: Operation summaries should start with provider name "Wikidata"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete,head,options].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Wikidata "
+
+  # TAGS
+  tags-global-defined:
+    description: Global tags array must be defined
+    severity: warn
+    given: $
+    then:
+      field: tags
+      function: truthy
+
+  tags-description-required:
+    description: Global tags must have descriptions
+    severity: warn
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  parameter-schema-required:
+    description: All parameters must define a schema
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: schema
+      function: truthy
+
+  # REQUEST BODIES
+  request-body-content-required:
+    description: Request bodies must define content
+    severity: error
+    given: $.paths[*][post,put,patch].requestBody
+    then:
+      field: content
+      function: truthy
+
+  # RESPONSES
+  response-success-required:
+    description: Every operation must define at least one 2xx response
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-description-required:
+    description: All responses must have a description
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  response-401-for-authenticated:
+    description: Authenticated operations should define a 401 response
+    severity: warn
+    given: $.paths[*][post,put,patch,delete]
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  # SCHEMAS — PROPERTY NAMING
+  schema-description-required:
+    description: Top-level component schemas should have a description
+    severity: info
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy
+
+  schema-properties-types:
+    description: Schema properties should define a type
+    severity: warn
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: type
+      function: truthy
+
+  # SECURITY
+  security-schemes-defined:
+    description: Security schemes must be defined in components
+    severity: warn
+    given: $.components
+    then:
+      field: securitySchemes
+      function: truthy
+
+  security-scheme-description:
+    description: Security schemes should have descriptions
+    severity: info
+    given: $.components.securitySchemes[*]
+    then:
+      field: description
+      function: truthy
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations must not have a request body
+    severity: error
+    given: $.paths[*].get
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-required-body:
+    description: DELETE operations should return 200 or 204
+    severity: info
+    given: $.paths[*].delete
+    then:
+      field: responses
+      function: truthy
+
+  # GENERAL QUALITY
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings
+    severity: warn
+    given: $..description
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"
+
+  examples-encouraged:
+    description: Schema properties should have example values
+    severity: info
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: example
+      function: truthy

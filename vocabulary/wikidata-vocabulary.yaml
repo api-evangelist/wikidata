@@ -1,0 +1,245 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Wikidata"
+  description: >-
+    Unified vocabulary for Wikidata APIs covering the Wikibase REST API and MediaWiki
+    Action API. Maps entity operations, property types, and data structures to
+    knowledge-graph access patterns and AI-assisted workflows.
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - name: Wikibase REST API
+      namespace: wikibase-rest
+      version: "v0"
+      baseUrl: https://www.wikidata.org/w/rest.php/wikibase/v0
+      status: active
+    - name: MediaWiki Action API
+      namespace: mediawiki-action
+      version: "1"
+      baseUrl: https://www.wikidata.org/w/api.php
+      status: active
+    - name: SPARQL Query Service
+      namespace: sparql
+      version: "1.1"
+      baseUrl: https://query.wikidata.org/sparql
+      status: active
+
+  resources:
+    - name: items
+      description: Wikidata Q-entities representing real-world concepts, people, places, and things
+      apis: [wikibase-rest]
+      actions: [get, create, patch]
+    - name: properties
+      description: Wikidata P-entities defining relationship types and data schemas
+      apis: [wikibase-rest]
+      actions: [get]
+    - name: statements
+      description: Factual claims on items consisting of property, value, rank, qualifiers, and references
+      apis: [wikibase-rest]
+      actions: [get, add, delete]
+    - name: labels
+      description: Multilingual human-readable names for entities
+      apis: [wikibase-rest]
+      actions: [get, set]
+    - name: descriptions
+      description: Multilingual short descriptions disambiguating entities
+      apis: [wikibase-rest]
+      actions: [get]
+    - name: sitelinks
+      description: Links connecting Wikidata items to Wikipedia and sister project articles
+      apis: [wikibase-rest]
+      actions: [get]
+
+  actions:
+    - name: get
+      description: Read a single entity by ID
+      httpMethod: GET
+      pattern: read
+    - name: create
+      description: Create a new entity
+      httpMethod: POST
+      pattern: write
+    - name: patch
+      description: Partially update an entity via JSON patch
+      httpMethod: PATCH
+      pattern: write
+    - name: set
+      description: Set or replace a specific field value
+      httpMethod: PUT
+      pattern: write
+    - name: add
+      description: Add a new member to a collection (e.g., statement to item)
+      httpMethod: POST
+      pattern: write
+    - name: delete
+      description: Remove an entity or statement
+      httpMethod: DELETE
+      pattern: destructive
+    - name: query
+      description: Run a SPARQL graph query over the full knowledge base
+      httpMethod: GET
+      pattern: query
+
+  schemas:
+    core:
+      - name: Item
+        description: Wikidata Q-entity with labels, descriptions, aliases, statements, sitelinks
+        key_properties: [id, type, labels, descriptions, aliases, statements, sitelinks]
+      - name: Property
+        description: Wikidata P-entity with datatype and multilingual names
+        key_properties: [id, type, datatype, labels, descriptions]
+      - name: Statement
+        description: Factual claim on an item with property, value, rank, qualifiers, references
+        key_properties: [id, rank, property, value, qualifiers, references]
+      - name: DataValue
+        description: Polymorphic value container (string, number, entity reference, coordinates)
+        key_properties: [type, content]
+      - name: Sitelink
+        description: Link to a Wikipedia or Wikimedia project article
+        key_properties: [title, url, badges]
+
+  parameters:
+    identifiers:
+      - name: item_id
+        description: Wikidata Q-entity identifier (e.g. Q42)
+        pattern: "^Q\\d+$"
+      - name: property_id
+        description: Wikidata P-entity identifier (e.g. P31)
+        pattern: "^P\\d+$"
+      - name: statement_id
+        description: Globally unique statement GUID (Q42$...)
+      - name: language_code
+        description: BCP 47 language code (e.g. en, fr, de)
+    filters:
+      - name: property
+        description: Filter statements by property P-ID
+
+  enums:
+    statement_rank:
+      - preferred
+      - normal
+      - deprecated
+    entity_type:
+      - item
+      - property
+    property_datatype:
+      - wikibase-item
+      - wikibase-property
+      - string
+      - monolingualtext
+      - quantity
+      - time
+      - globe-coordinate
+      - url
+      - commonsMedia
+      - external-id
+    data_value_type:
+      - value
+      - somevalue
+      - novalue
+    patch_operation:
+      - add
+      - remove
+      - replace
+      - move
+      - copy
+      - test
+
+  authentication:
+    schemes:
+      - name: OAuth2
+        type: oauth2
+        flow: authorizationCode
+        authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+        tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+        description: OAuth2 for write operations (edit items, create statements)
+        scopes:
+          - editpage
+          - createeditmovepage
+      - name: MediaWikiSession
+        type: apiKey
+        in: cookie
+        description: MediaWiki session cookie for authenticated requests
+
+capability:
+  workflows:
+    - name: Knowledge Graph Access
+      file: capabilities/knowledge-graph-access.yaml
+      description: Unified read/write access to Wikidata knowledge graph entities and statements
+      apisUsed: [Wikibase REST API]
+      toolCount: 7
+      personas: [Data Engineer, Knowledge Graph Analyst, AI/ML Pipeline]
+      domains: [Knowledge Graph, Linked Data, Open Data]
+
+  personas:
+    - id: data-engineer
+      name: Data Engineer
+      description: Engineer ingesting and enriching datasets with Wikidata linked data facts
+      workflows: [Knowledge Graph Access]
+    - id: knowledge-graph-analyst
+      name: Knowledge Graph Analyst
+      description: Analyst navigating entity relationships and property hierarchies in Wikidata
+      workflows: [Knowledge Graph Access]
+    - id: ai-ml-pipeline
+      name: AI/ML Pipeline
+      description: Automated pipeline using Wikidata as a factual grounding source for LLMs
+      workflows: [Knowledge Graph Access]
+
+  domains:
+    - name: Knowledge Graph
+      description: Structured, linked entity data representing real-world facts
+      resources: [items, properties, statements]
+    - name: Linked Data
+      description: RDF-compatible representation for semantic web and ontology alignment
+      resources: [items, sitelinks]
+    - name: Open Data
+      description: CC0-licensed public domain data accessible without authentication for reads
+      resources: [items, properties]
+
+  namespaces:
+    - type: consumed
+      namespace: wikibase-rest
+      baseUri: https://www.wikidata.org/w/rest.php/wikibase/v0
+    - type: rest-exposed
+      namespace: wikidata-knowledge-graph-api
+      port: 8080
+    - type: mcp-exposed
+      namespace: wikidata-knowledge-graph-mcp
+      port: 9090
+
+  binds:
+    - name: WIKIDATA_OAUTH_TOKEN
+      description: OAuth2 bearer token for Wikidata write operations
+      workflows: [Knowledge Graph Access]
+
+crossReference:
+  - resource: items
+    operations:
+      - operationId: getItem
+        method: GET
+        path: /entities/items/{item_id}
+    workflows: [Knowledge Graph Access]
+    personas: [Data Engineer, Knowledge Graph Analyst, AI/ML Pipeline]
+  - resource: statements
+    operations:
+      - operationId: getItemStatements
+        method: GET
+        path: /entities/items/{item_id}/statements
+      - operationId: addItemStatement
+        method: POST
+        path: /entities/items/{item_id}/statements
+      - operationId: deleteStatement
+        method: DELETE
+        path: /statements/{statement_id}
+    workflows: [Knowledge Graph Access]
+    personas: [Data Engineer, Knowledge Graph Analyst]
+  - resource: properties
+    operations:
+      - operationId: getProperty
+        method: GET
+        path: /entities/properties/{property_id}
+    workflows: [Knowledge Graph Access]
+    personas: [Knowledge Graph Analyst, AI/ML Pipeline]

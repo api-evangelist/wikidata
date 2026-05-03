@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-item--create-structure.json",
+  "description": "ItemCreate schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "descriptions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "aliases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "statements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/StatementCreate"
+        }
+      }
+    },
+    "comment": {
+      "type": "string",
+      "description": "Edit summary"
+    },
+    "bot": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "name": "ItemCreate"
+}

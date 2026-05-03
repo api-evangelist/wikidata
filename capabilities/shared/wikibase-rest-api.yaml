@@ -1,0 +1,359 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Wikibase REST API"
+  description: >-
+    Wikibase REST API for Wikidata entity read/write operations including items,
+    properties, labels, descriptions, and statements.
+  tags:
+    - Wikidata
+    - Knowledge Graph
+    - Entities
+    - Statements
+    - Linked Data
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WIKIDATA_OAUTH_TOKEN: WIKIDATA_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: wikibase-rest
+      baseUri: https://www.wikidata.org/w/rest.php/wikibase/v0
+      description: "Wikibase REST API for reading and writing Wikidata entities."
+      authentication:
+        type: bearer
+        token: "{{WIKIDATA_OAUTH_TOKEN}}"
+      resources:
+        - name: items
+          path: /entities/items
+          description: "Wikidata item (Q-entity) operations"
+          operations:
+            - name: create-item
+              method: POST
+              description: "Create a new Wikidata item"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  labels: "{{tools.labels}}"
+                  descriptions: "{{tools.descriptions}}"
+                  statements: "{{tools.statements}}"
+
+        - name: item
+          path: /entities/items/{item_id}
+          description: "Single Wikidata item operations"
+          operations:
+            - name: get-item
+              method: GET
+              description: "Get a Wikidata item by ID"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID (e.g. Q42)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: patch-item
+              method: PATCH
+              description: "Update a Wikidata item via JSON patch"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  patch: "{{tools.patch}}"
+                  comment: "{{tools.comment}}"
+
+        - name: item-labels
+          path: /entities/items/{item_id}/labels/{language_code}
+          description: "Item label operations"
+          operations:
+            - name: get-item-label
+              method: GET
+              description: "Get a label for an item in a specific language"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID"
+                - name: language_code
+                  in: path
+                  type: string
+                  required: true
+                  description: "BCP 47 language code"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: string
+                  value: "$."
+
+            - name: set-item-label
+              method: PUT
+              description: "Set a label for an item in a specific language"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID"
+                - name: language_code
+                  in: path
+                  type: string
+                  required: true
+                  description: "BCP 47 language code"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  label: "{{tools.label}}"
+                  comment: "{{tools.comment}}"
+
+        - name: item-statements
+          path: /entities/items/{item_id}/statements
+          description: "Item statement (claim) operations"
+          operations:
+            - name: get-item-statements
+              method: GET
+              description: "Get all statements for a Wikidata item"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID"
+                - name: property
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by property ID (e.g. P31)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: add-item-statement
+              method: POST
+              description: "Add a new statement to a Wikidata item"
+              inputParameters:
+                - name: item_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata item ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  property: "{{tools.property}}"
+                  value: "{{tools.value}}"
+
+        - name: statements
+          path: /statements/{statement_id}
+          description: "Individual statement operations"
+          operations:
+            - name: get-statement
+              method: GET
+              description: "Get a single statement by ID"
+              inputParameters:
+                - name: statement_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Statement ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-statement
+              method: DELETE
+              description: "Delete a statement from an item"
+              inputParameters:
+                - name: statement_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Statement ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: properties
+          path: /entities/properties/{property_id}
+          description: "Wikidata property operations"
+          operations:
+            - name: get-property
+              method: GET
+              description: "Get a Wikidata property by ID"
+              inputParameters:
+                - name: property_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wikidata property ID (e.g. P31)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: wikibase-rest-api
+      resources:
+        - path: /v1/items
+          name: items
+          description: "Wikidata item collection"
+          operations:
+            - method: POST
+              name: create-item
+              description: "Create a new Wikidata item"
+              call: "wikibase-rest.create-item"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/items/{item_id}
+          name: item
+          description: "Single Wikidata item"
+          operations:
+            - method: GET
+              name: get-item
+              description: "Get a Wikidata item"
+              call: "wikibase-rest.get-item"
+              with:
+                item_id: "rest.item_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/items/{item_id}/statements
+          name: item-statements
+          description: "Item statements"
+          operations:
+            - method: GET
+              name: get-item-statements
+              description: "Get statements for an item"
+              call: "wikibase-rest.get-item-statements"
+              with:
+                item_id: "rest.item_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/properties/{property_id}
+          name: property
+          description: "Wikidata property"
+          operations:
+            - method: GET
+              name: get-property
+              description: "Get a Wikidata property"
+              call: "wikibase-rest.get-property"
+              with:
+                property_id: "rest.property_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: wikibase-rest-mcp
+      transport: http
+      tools:
+        - name: get-item
+          description: "Retrieve a Wikidata item (Q-entity) with all labels, descriptions, aliases, sitelinks, and statements."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "wikibase-rest.get-item"
+          with:
+            item_id: "tools.item_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-item-statements
+          description: "Retrieve all statements (claims) for a Wikidata item, optionally filtered by property."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "wikibase-rest.get-item-statements"
+          with:
+            item_id: "tools.item_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-property
+          description: "Retrieve a Wikidata property (P-entity) with labels, descriptions, and datatype."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "wikibase-rest.get-property"
+          with:
+            property_id: "tools.property_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-item
+          description: "Create a new Wikidata item with labels, descriptions, aliases, and statements."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "wikibase-rest.create-item"
+          with:
+            labels: "tools.labels"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: add-item-statement
+          description: "Add a new statement (claim) to an existing Wikidata item."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "wikibase-rest.add-item-statement"
+          with:
+            item_id: "tools.item_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

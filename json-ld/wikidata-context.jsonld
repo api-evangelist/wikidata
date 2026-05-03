@@ -1,73 +1,136 @@
 {
   "@context": {
     "@version": 1.1,
-    "schema": "https://schema.org/",
     "wd": "http://www.wikidata.org/entity/",
     "wdt": "http://www.wikidata.org/prop/direct/",
     "wikibase": "http://wikiba.se/ontology#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "owl": "http://www.w3.org/2002/07/owl#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "prov": "http://www.w3.org/ns/prov#",
-
-    "Item": "wikibase:Item",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "Property": "wikibase:Property",
+    "Item": "wikibase:Item",
+    "Sitelink": "wikibase:Sitelink",
+    "ItemCreate": "wikibase:ItemCreate",
     "Statement": "wikibase:Statement",
-    "Reference": "wikibase:Reference",
-    "BestRank": "wikibase:BestRank",
-
-    "id": "@id",
-    "type": "@type",
+    "StatementCreate": "wikibase:StatementCreate",
+    "DataValue": "wikibase:DataValue",
+    "Wikidata Entity": "wikibase:Wikidata Entity",
+    "PatchRequest": "wikibase:PatchRequest",
+    "id": {
+      "@id": "wd:id",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "wd:type",
+      "@type": "xsd:string"
+    },
+    "datatype": {
+      "@id": "wd:datatype",
+      "@type": "xsd:string"
+    },
     "labels": {
-      "@id": "rdfs:label",
-      "@container": "@language"
+      "@id": "wd:labels",
+      "@type": "@id"
     },
     "descriptions": {
-      "@id": "schema:description",
-      "@container": "@language"
+      "@id": "wd:descriptions",
+      "@type": "@id"
     },
     "aliases": {
-      "@id": "skos:altLabel",
-      "@container": "@language"
-    },
-    "statements": "wikibase:statements",
-    "sitelinks": "schema:sameAs",
-
-    "datatype": {
-      "@id": "wikibase:propertyType",
+      "@id": "wd:aliases",
       "@type": "@id"
     },
-    "lastrevid": "schema:version",
+    "statements": {
+      "@id": "wd:statements",
+      "@type": "@id"
+    },
+    "sitelinks": {
+      "@id": "wd:sitelinks",
+      "@type": "@id"
+    },
+    "title": {
+      "@id": "wd:title",
+      "@type": "xsd:string"
+    },
+    "url": "schema:url",
+    "badges": {
+      "@id": "wd:badges",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "wd:comment",
+      "@type": "xsd:string"
+    },
+    "bot": {
+      "@id": "wd:bot",
+      "@type": "xsd:boolean"
+    },
+    "rank": {
+      "@id": "wd:rank",
+      "@type": "xsd:string"
+    },
+    "property": {
+      "@id": "wd:property",
+      "@type": "@id"
+    },
+    "qualifiers": {
+      "@id": "wd:qualifiers",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "references": {
+      "@id": "wd:references",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "hash": {
+      "@id": "wd:hash",
+      "@type": "xsd:string"
+    },
+    "parts": {
+      "@id": "wd:parts",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "content": {
+      "@id": "wd:content",
+      "@type": "xsd:string"
+    },
+    "lastrevid": {
+      "@id": "wd:lastrevid",
+      "@type": "xsd:integer"
+    },
     "modified": {
-      "@id": "schema:dateModified",
+      "@id": "wd:modified",
       "@type": "xsd:dateTime"
     },
-
-    "rank": "wikibase:rank",
-    "property": {
-      "@id": "wikibase:directClaim",
+    "patch": {
+      "@id": "wd:patch",
+      "@container": "@set",
       "@type": "@id"
     },
-    "qualifiers": "wikibase:qualifier",
-    "references": "prov:wasDerivedFrom",
-
-    "title": "rdfs:label",
-    "url": {
-      "@id": "schema:url",
-      "@type": "@id"
+    "op": {
+      "@id": "wd:op",
+      "@type": "xsd:string"
     },
-    "badges": "wikibase:badge",
-
-    "P31": "wdt:P31",
-    "P279": "wdt:P279",
-    "P18": "wdt:P18",
-    "P569": "wdt:P569",
-    "P570": "wdt:P570",
-    "P21": "wdt:P21",
-    "P17": "wdt:P17",
-    "P625": "wdt:P625",
-    "P856": "wdt:P856",
-    "P131": "wdt:P131"
+    "path": {
+      "@id": "wd:path",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "wd:value",
+      "@type": "xsd:string"
+    },
+    "from": {
+      "@id": "wd:from",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "wd:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    }
   }
 }

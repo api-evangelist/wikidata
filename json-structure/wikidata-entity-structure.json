@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-entity-structure.json",
+  "description": "A Wikidata entity \u2014 either an Item (Q) or Property (P) in the Wikibase data model",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Entity identifier \u2014 Q prefix for items, P prefix for properties",
+      "pattern": "^[QP]\\d+$",
+      "examples": [
+        "Q42",
+        "P31",
+        "Q350"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "item",
+        "property"
+      ],
+      "description": "Entity type"
+    },
+    "datatype": {
+      "type": "string",
+      "description": "Property datatype (only for properties)",
+      "enum": [
+        "wikibase-item",
+        "wikibase-property",
+        "string",
+        "monolingualtext",
+        "quantity",
+        "time",
+        "globe-coordinate",
+        "url",
+        "commonsMedia",
+        "external-id",
+        "math",
+        "geo-shape",
+        "tabular-data",
+        "lexeme",
+        "sense",
+        "form"
+      ]
+    },
+    "labels": {
+      "type": "object",
+      "description": "Labels keyed by BCP 47 language code",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "en": "Douglas Adams",
+          "fr": "Douglas Adams",
+          "de": "Douglas Adams"
+        }
+      ]
+    },
+    "descriptions": {
+      "type": "object",
+      "description": "Descriptions keyed by BCP 47 language code",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "en": "British author and humorist (1952\u20132001)"
+        }
+      ]
+    },
+    "aliases": {
+      "type": "object",
+      "description": "Alternate names keyed by language code",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "statements": {
+      "type": "object",
+      "description": "Claims/statements keyed by property ID",
+      "additionalProperties": {
+        "type": "array",
+        "description": "All statements for a given property",
+        "items": {
+          "$ref": "#/$defs/Statement"
+        }
+      }
+    },
+    "sitelinks": {
+      "type": "object",
+      "description": "Links to Wikipedia and other Wikimedia sister projects (items only)",
+      "additionalProperties": {
+        "$ref": "#/$defs/Sitelink"
+      }
+    },
+    "lastrevid": {
+      "type": "int32",
+      "description": "Latest revision ID"
+    },
+    "modified": {
+      "type": "datetime",
+      "description": "Timestamp of last modification"
+    }
+  },
+  "required": [
+    "id",
+    "type"
+  ],
+  "name": "Wikidata Entity",
+  "definitions": {
+    "Statement": {
+      "type": "object",
+      "description": "A single claim/statement on an entity",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Statement GUID (e.g., Q42$F078E5B3-...)"
+        },
+        "rank": {
+          "type": "string",
+          "enum": [
+            "preferred",
+            "normal",
+            "deprecated"
+          ],
+          "description": "Statement rank for conflicting values"
+        },
+        "property": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^P\\d+$"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/DataValue"
+        },
+        "qualifiers": {
+          "type": "array",
+          "description": "Qualifying statements providing context",
+          "items": {
+            "type": "object",
+            "properties": {
+              "property": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^P\\d+$"
+                  }
+                }
+              },
+              "value": {
+                "$ref": "#/$defs/DataValue"
+              }
+            }
+          }
+        },
+        "references": {
+          "type": "array",
+          "description": "Reference sources for this statement",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hash": {
+                "type": "string"
+              },
+              "parts": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "property",
+        "value"
+      ],
+      "name": "Statement"
+    },
+    "DataValue": {
+      "type": "object",
+      "description": "A snak value",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "value",
+            "somevalue",
+            "novalue"
+          ],
+          "description": "value=has a value, somevalue=unknown value exists, novalue=no value"
+        },
+        "content": {
+          "description": "The actual value \u2014 type depends on property datatype",
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "String, URL, external ID, or item/property reference"
+            },
+            {
+              "type": "double",
+              "description": "Numeric quantity"
+            },
+            {
+              "type": "object",
+              "description": "Complex value (time, coordinate, quantity with units)",
+              "properties": {
+                "time": {
+                  "type": "string",
+                  "description": "ISO 8601 extended timestamp"
+                },
+                "precision": {
+                  "type": "int32",
+                  "description": "Temporal precision (0=billion years, 14=second)"
+                },
+                "latitude": {
+                  "type": "double"
+                },
+                "longitude": {
+                  "type": "double"
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "name": "DataValue"
+    },
+    "Sitelink": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Article title in the linked wiki"
+        },
+        "url": {
+          "type": "uri",
+          "description": "Full URL to the linked article"
+        },
+        "badges": {
+          "type": "array",
+          "description": "Quality badges (featured article, good article)",
+          "items": {
+            "type": "string",
+            "pattern": "^Q\\d+$"
+          }
+        }
+      },
+      "name": "Sitelink"
+    }
+  }
+}

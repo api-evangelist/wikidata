@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-item-schema.json",
+  "title": "Item",
+  "description": "Item schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^Q\\d+$",
+      "description": "Wikidata item ID",
+      "example": "Q42"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "item"
+      ]
+    },
+    "labels": {
+      "type": "object",
+      "description": "Labels keyed by language code",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "en": "Douglas Adams",
+        "fr": "Douglas Adams"
+      }
+    },
+    "descriptions": {
+      "type": "object",
+      "description": "Descriptions keyed by language code",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "aliases": {
+      "type": "object",
+      "description": "Aliases keyed by language code",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "statements": {
+      "type": "object",
+      "description": "Statements keyed by property ID",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Statement"
+        }
+      }
+    },
+    "sitelinks": {
+      "type": "object",
+      "description": "Sitelinks to Wikipedia and Wikimedia projects",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/Sitelink"
+      }
+    }
+  }
+}

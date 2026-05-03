@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-patch--request-structure.json",
+  "description": "PatchRequest schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "patch": {
+      "type": "array",
+      "description": "JSON Patch operations (RFC 6902)",
+      "items": {
+        "type": "object",
+        "required": [
+          "op",
+          "path"
+        ],
+        "properties": {
+          "op": {
+            "type": "string",
+            "enum": [
+              "add",
+              "remove",
+              "replace",
+              "move",
+              "copy",
+              "test"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "value": {
+            "description": "New value for add/replace operations"
+          },
+          "from": {
+            "type": "string",
+            "description": "Source path for move/copy operations"
+          }
+        }
+      }
+    },
+    "comment": {
+      "type": "string",
+      "description": "Edit summary"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Change tags to apply"
+    },
+    "bot": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "patch"
+  ],
+  "name": "PatchRequest"
+}

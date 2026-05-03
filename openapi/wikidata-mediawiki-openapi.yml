@@ -15,35 +15,35 @@ info:
     name: CC0 1.0 Universal (Public Domain)
     url: https://creativecommons.org/publicdomain/zero/1.0/
 servers:
-  - url: https://www.wikidata.org/w/rest.php/wikibase/v0
-    description: Wikibase REST API (Beta)
-  - url: https://www.wikidata.org/w/api.php
-    description: MediaWiki Action API
+- url: https://www.wikidata.org/w/rest.php/wikibase/v0
+  description: Wikibase REST API (Beta)
+- url: https://www.wikidata.org/w/api.php
+  description: MediaWiki Action API
 
 tags:
-  - name: Descriptions
-    description: Description management
-  - name: Items
-    description: Wikidata item (Q-entity) operations
-  - name: Labels
-    description: Label management
-  - name: Properties
-    description: Wikidata property (P-entity) operations
-  - name: Statements
-    description: Statement (claim) operations
+- name: Descriptions
+  description: Description management
+- name: Items
+  description: Wikidata item (Q-entity) operations
+- name: Labels
+  description: Label management
+- name: Properties
+  description: Wikidata property (P-entity) operations
+- name: Statements
+  description: Statement (claim) operations
 paths:
   /entities/items/{item_id}:
     get:
       operationId: getItem
-      summary: Get a Wikidata item
+      summary: Wikidata Get a Wikidata Item
       description: >-
         Returns a Wikidata item (Q-entity) with all its labels, descriptions,
         aliases, sitelinks, and statements in JSON format.
       tags:
-        - Items
+      - Items
       parameters:
-        - $ref: '#/components/parameters/ItemId'
-        - $ref: '#/components/parameters/IfNoneMatch'
+      - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Wikidata item
@@ -59,24 +59,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+              examples:
+                getItem200Example:
+                  summary: Default getItem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '304':
           description: Not modified (ETag match)
         '404':
           description: Item not found
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: patchItem
-      summary: Update a Wikidata item
+      summary: Wikidata Update a Wikidata Item
       description: >-
         Applies a JSON patch to update an item. Requires authentication via
         OAuth2 or bot password. Includes edit comment and tags.
       tags:
-        - Items
+      - Items
       security:
-        - OAuth2: []
-        - MediaWikiSession: []
+      - OAuth2: []
+      - MediaWikiSession: []
       parameters:
-        - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/ItemId'
       requestBody:
         required: true
         content:
@@ -90,6 +124,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+              examples:
+                patchItem200Example:
+                  summary: Default patchItem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '400':
           description: Invalid patch
         '401':
@@ -99,16 +164,19 @@ paths:
         '409':
           description: Edit conflict — base revision mismatch
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /entities/items:
     post:
       operationId: createItem
-      summary: Create a new Wikidata item
+      summary: Wikidata Create a New Wikidata Item
       description: Creates a new Wikidata item with provided labels, descriptions, aliases, and statements.
       tags:
-        - Items
+      - Items
       security:
-        - OAuth2: []
-        - MediaWikiSession: []
+      - OAuth2: []
+      - MediaWikiSession: []
       requestBody:
         required: true
         content:
@@ -122,21 +190,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+              examples:
+                createItem201Example:
+                  summary: Default createItem 201 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '400':
           description: Invalid item data
         '401':
           description: Unauthorized
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /entities/items/{item_id}/labels/{language_code}:
     get:
       operationId: getItemLabel
-      summary: Get a label for an item
+      summary: Wikidata Get a Label for an Item
       description: Returns the label for a Wikidata item in a specific language.
       tags:
-        - Labels
+      - Labels
       parameters:
-        - $ref: '#/components/parameters/ItemId'
-        - $ref: '#/components/parameters/LanguageCode'
+      - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/LanguageCode'
       responses:
         '200':
           description: Label value
@@ -145,21 +247,55 @@ paths:
               schema:
                 type: string
                 example: "Douglas Adams"
+              examples:
+                getItemLabel200Example:
+                  summary: Default getItemLabel 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '404':
           description: Label not found for this language
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: setItemLabel
-      summary: Set a label for an item
+      summary: Wikidata Set a Label for an Item
       description: Sets or replaces the label for a Wikidata item in the specified language.
       tags:
-        - Labels
+      - Labels
       security:
-        - OAuth2: []
-        - MediaWikiSession: []
+      - OAuth2: []
+      - MediaWikiSession: []
       parameters:
-        - $ref: '#/components/parameters/ItemId'
-        - $ref: '#/components/parameters/LanguageCode'
+      - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/LanguageCode'
       requestBody:
         required: true
         content:
@@ -167,7 +303,7 @@ paths:
             schema:
               type: object
               required:
-                - label
+              - label
               properties:
                 label:
                   type: string
@@ -182,16 +318,19 @@ paths:
         '201':
           description: Label created
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /entities/items/{item_id}/descriptions/{language_code}:
     get:
       operationId: getItemDescription
-      summary: Get a description for an item
+      summary: Wikidata Get a Description for an Item
       description: Returns the description for a Wikidata item in a specific language.
       tags:
-        - Descriptions
+      - Descriptions
       parameters:
-        - $ref: '#/components/parameters/ItemId'
-        - $ref: '#/components/parameters/LanguageCode'
+      - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/LanguageCode'
       responses:
         '200':
           description: Description value
@@ -199,27 +338,61 @@ paths:
             application/json:
               schema:
                 type: string
+              examples:
+                getItemDescription200Example:
+                  summary: Default getItemDescription 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '404':
           description: Description not found
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /entities/items/{item_id}/statements:
     get:
       operationId: getItemStatements
-      summary: Get statements for an item
+      summary: Wikidata Get Statements for an Item
       description: >-
         Returns all statements (claims) for a Wikidata item, optionally filtered
         by property. Statements include main snak, qualifiers, and references.
       tags:
-        - Statements
+      - Statements
       parameters:
-        - $ref: '#/components/parameters/ItemId'
-        - name: property
-          in: query
-          schema:
-            type: string
-            pattern: '^P\d+$'
-          description: Filter statements by property ID
-          example: "P31"
+      - $ref: '#/components/parameters/ItemId'
+      - name: property
+        in: query
+        schema:
+          type: string
+          pattern: '^P\d+$'
+        description: Filter statements by property ID
+        example: "P31"
       responses:
         '200':
           description: Item statements
@@ -231,20 +404,54 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Statement'
+              examples:
+                getItemStatements200Example:
+                  summary: Default getItemStatements 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
         '404':
           description: Item not found
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: addItemStatement
-      summary: Add a statement to an item
+      summary: Wikidata Add a Statement to an Item
       description: Adds a new statement (claim) to a Wikidata item.
       tags:
-        - Statements
+      - Statements
       security:
-        - OAuth2: []
-        - MediaWikiSession: []
+      - OAuth2: []
+      - MediaWikiSession: []
       parameters:
-        - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/ItemId'
       requestBody:
         required: true
         content:
@@ -259,21 +466,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/Statement'
 
+              examples:
+                addItemStatement201Example:
+                  summary: Default addItemStatement 201 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                    rank: normal
+                    property:
+                      id: P31
+                    value:
+                      type: value
+                      content: Q5
+                    qualifiers: []
+                    references: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /statements/{statement_id}:
     get:
       operationId: getStatement
-      summary: Get a single statement
+      summary: Wikidata Get a Single Statement
       description: Returns a single statement by its globally unique statement ID.
       tags:
-        - Statements
+      - Statements
       parameters:
-        - name: statement_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Statement ID (Q{itemId}${guid})
-          example: "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9"
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Statement ID (Q{itemId}${guid})
+        example: "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9"
       responses:
         '200':
           description: Statement
@@ -282,21 +506,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/Statement'
 
+              examples:
+                getStatement200Example:
+                  summary: Default getStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                    rank: normal
+                    property:
+                      id: P31
+                    value:
+                      type: value
+                      content: Q5
+                    qualifiers: []
+                    references: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteStatement
-      summary: Delete a statement
+      summary: Wikidata Delete a Statement
       description: Removes a statement from its parent item.
       tags:
-        - Statements
+      - Statements
       security:
-        - OAuth2: []
-        - MediaWikiSession: []
+      - OAuth2: []
+      - MediaWikiSession: []
       parameters:
-        - name: statement_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
       requestBody:
         content:
           application/json:
@@ -312,22 +554,25 @@ paths:
         '404':
           description: Statement not found
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /entities/properties/{property_id}:
     get:
       operationId: getProperty
-      summary: Get a Wikidata property
+      summary: Wikidata Get a Wikidata Property
       description: Returns a Wikidata property (P-entity) with labels, descriptions, and statements.
       tags:
-        - Properties
+      - Properties
       parameters:
-        - name: property_id
-          in: path
-          required: true
-          description: Wikidata property ID
-          schema:
-            type: string
-            pattern: '^P\d+$'
-          example: "P31"
+      - name: property_id
+        in: path
+        required: true
+        description: Wikidata property ID
+        schema:
+          type: string
+          pattern: '^P\d+$'
+        example: "P31"
       responses:
         '200':
           description: Property details
@@ -335,9 +580,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Property'
+              examples:
+                getProperty200Example:
+                  summary: Default getProperty 200 response
+                  x-microcks-default: true
+                  value:
+                    id: P31
+                    type: property
+                    datatype: wikibase-item
+                    labels:
+                      en: instance of
+                    descriptions:
+                      en: that class of which this subject is a particular example and member
         '404':
           description: Property not found
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     OAuth2:
@@ -466,7 +726,8 @@ components:
           enum: [property]
         datatype:
           type: string
-          enum: [wikibase-item, wikibase-property, string, monolingualtext, multilingual-text, quantity, time, globe-coordinate, url, commonsMedia, external-id, math, geo-shape, tabular-data, musical-notation, lexeme, sense, form]
+          enum: [wikibase-item, wikibase-property, string, monolingualtext, multilingual-text, quantity, time, globe-coordinate, url, commonsMedia, external-id, math, geo-shape, tabular-data, 
+              musical-notation, lexeme, sense, form]
         labels:
           type: object
           additionalProperties:
@@ -520,13 +781,13 @@ components:
     StatementCreate:
       type: object
       required:
-        - property
-        - value
+      - property
+      - value
       properties:
         property:
           type: object
           required:
-            - id
+          - id
           properties:
             id:
               type: string
@@ -557,10 +818,10 @@ components:
         content:
           description: Value content — depends on property datatype
           oneOf:
-            - type: string
-            - type: number
-            - type: object
-            - type: "null"
+          - type: string
+          - type: number
+          - type: object
+          - type: "null"
 
     Sitelink:
       type: object
@@ -580,7 +841,7 @@ components:
     PatchRequest:
       type: object
       required:
-        - patch
+      - patch
       properties:
         patch:
           type: array
@@ -588,8 +849,8 @@ components:
           items:
             type: object
             required:
-              - op
-              - path
+            - op
+            - path
             properties:
               op:
                 type: string

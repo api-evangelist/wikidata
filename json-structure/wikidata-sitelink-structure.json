@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-sitelink-structure.json",
+  "description": "Sitelink schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Wikipedia article title"
+    },
+    "url": {
+      "type": "uri"
+    },
+    "badges": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Featured/Good article badges"
+      }
+    }
+  },
+  "name": "Sitelink"
+}

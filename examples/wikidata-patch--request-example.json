@@ -1,0 +1,22 @@
+{
+  "patch": [
+    {
+      "op": "add",
+      "path": "/labels/en",
+      "value": null,
+      "from": "/labels/en"
+    },
+    {
+      "op": "add",
+      "path": "/labels/en",
+      "value": null,
+      "from": "/labels/en"
+    }
+  ],
+  "comment": "Update via API",
+  "tags": [
+    "example-value",
+    "example-value"
+  ],
+  "bot": false
+}

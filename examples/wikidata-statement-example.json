@@ -1,0 +1,38 @@
+{
+  "id": "Q42",
+  "rank": "deprecated",
+  "property": {
+    "id": "Q42"
+  },
+  "value": null,
+  "qualifiers": [
+    {
+      "property": {
+        "id": "Q42"
+      },
+      "value": null
+    },
+    {
+      "property": {
+        "id": "Q42"
+      },
+      "value": null
+    }
+  ],
+  "references": [
+    {
+      "hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "parts": [
+        {},
+        {}
+      ]
+    },
+    {
+      "hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "parts": [
+        {},
+        {}
+      ]
+    }
+  ]
+}

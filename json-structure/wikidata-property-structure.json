@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-property-structure.json",
+  "description": "Property schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^P\\d+$",
+      "example": "P31"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "property"
+      ]
+    },
+    "datatype": {
+      "type": "string",
+      "enum": [
+        "wikibase-item",
+        "wikibase-property",
+        "string",
+        "monolingualtext",
+        "multilingual-text",
+        "quantity",
+        "time",
+        "globe-coordinate",
+        "url",
+        "commonsMedia",
+        "external-id",
+        "math",
+        "geo-shape",
+        "tabular-data",
+        "musical-notation",
+        "lexeme",
+        "sense",
+        "form"
+      ]
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "descriptions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "name": "Property"
+}

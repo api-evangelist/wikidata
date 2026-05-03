@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-structure/wikidata-statement--create-structure.json",
+  "description": "StatementCreate schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "property": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^P\\d+$"
+        }
+      }
+    },
+    "value": {
+      "$ref": "#/components/schemas/DataValue"
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "preferred",
+        "normal",
+        "deprecated"
+      ],
+      "default": "normal"
+    },
+    "qualifiers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "property",
+    "value"
+  ],
+  "name": "StatementCreate"
+}

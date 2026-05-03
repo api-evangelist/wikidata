@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-statement--create-schema.json",
+  "title": "StatementCreate",
+  "description": "StatementCreate schema from Wikidata REST API & MediaWiki API",
+  "type": "object",
+  "properties": {
+    "property": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^P\\d+$"
+        }
+      }
+    },
+    "value": {
+      "$ref": "#/components/schemas/DataValue"
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "preferred",
+        "normal",
+        "deprecated"
+      ],
+      "default": "normal"
+    },
+    "qualifiers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "property",
+    "value"
+  ]
+}
