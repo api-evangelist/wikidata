@@ -1,0 +1,13 @@
+{
+  "repo": "wikidata",
+  "feeds": [
+    {
+      "source": "https://blog.wikimedia.org/",
+      "feed_url": "https://diff.wikimedia.org/feed/",
+      "saved": 10,
+      "title": "Diff"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:38:16Z"
+}
