@@ -4,107 +4,59 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Wikidata
 providerId: wikidata
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Knowledge Graph
   - Linked Data
-  - Open Data
-  - Semantic Web
   - SPARQL
-  - Wikipedia
+  - Open Data
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Wikidata API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: Wikidata APIs are governed by Wikimedia's shared platform limits rather than per-account quotas. Anonymous and authenticated traffic is best-effort; abusive or unidentified clients are throttled or blocked. The SPARQL Query Service enforces a hard query-execution timeout. The MediaWiki Action API uses the maxlag parameter as a courtesy throttle when replication is behind. The User-Agent policy is mandatory - requests with a generic / missing User-Agent header may be denied without further notice.
+sources:
+  - https://www.wikidata.org/wiki/Wikidata:Data_access
+  - https://meta.wikimedia.org/wiki/User-Agent_policy
+  - https://www.mediawiki.org/wiki/API:Etiquette
+  - https://www.mediawiki.org/wiki/Manual:Maxlag_parameter
+  - https://www.mediawiki.org/wiki/Wikidata_Query_Service/User_Manual
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Wikibase REST API
-      - MediaWiki Action API
-      - SPARQL Query Service
-      - Linked Data Interface
-      - Recent Changes Event Stream
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Wikibase REST API
-      - MediaWiki Action API
-      - SPARQL Query Service
-      - Linked Data Interface
-      - Recent Changes Event Stream
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Wikibase REST API
-      - MediaWiki Action API
-      - SPARQL Query Service
-      - Linked Data Interface
-      - Recent Changes Event Stream
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Wikibase REST API
-      - MediaWiki Action API
-      - SPARQL Query Service
-      - Linked Data Interface
-      - Recent Changes Event Stream
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Wikibase REST API
-      - MediaWiki Action API
-      - SPARQL Query Service
-      - Linked Data Interface
-      - Recent Changes Event Stream
+  - name: SPARQL Query Execution Timeout
+    scope: IP
+    metric: seconds_per_query
+    limit: 60
+    timeFrame: second
+    notes: query.wikidata.org enforces a 60-second hard timeout on each SPARQL query; long-running queries are cancelled.
+  - name: SPARQL Concurrent Queries
+    scope: IP
+    metric: concurrent_queries
+    limit: 5
+    notes: Approximately five parallel queries per client IP on the public SPARQL endpoint; additional queries are queued or rejected.
+  - name: MediaWiki Action API maxlag Courtesy Throttle
+    scope: client
+    metric: replication_lag_seconds
+    limit: 5
+    notes: Best practice is to send maxlag=5 on bot / batch traffic; the API returns 200 with a maxlag error when replication is behind, and clients should pause.
+  - name: Wikimedia Global Rate Limits
+    scope: IP
+    metric: varies
+    limit: see https://meta.wikimedia.org/wiki/User-Agent_policy and per-API docs
+    notes: Global per-IP and per-user throttles apply across Wikimedia APIs; specific numbers are not pinned and may change. On 429 honor Retry-After; on prolonged errors, back off and reduce concurrency.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: User-Agent Policy
+    description: Every request must send a descriptive User-Agent identifying the tool and a contact URL or email. Generic / missing User-Agents are rejected.
+  - name: Bulk-Use via Dumps
+    description: For full-database reads or large extracts, use Wikimedia's database dumps rather than crawling the live APIs.
+  - name: maxlag Courtesy
+    description: Bots and batch clients should send maxlag=5 (or similar) on writes / heavy reads to MediaWiki Action API and pause when the API signals replication lag.
+  - name: Backoff on 429 / 503
+    description: Honor Retry-After. Apply exponential backoff with jitter; reduce concurrency before retrying.
+  - name: Accept-Encoding
+    description: Send Accept-Encoding gzip,deflate to reduce bandwidth on the shared infrastructure.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
