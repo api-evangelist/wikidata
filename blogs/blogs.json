@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://blog.wikimedia.org/",
-      "feed_url": "https://diff.wikimedia.org/feed/",
-      "saved": 10,
-      "title": "Diff"
+      "feed_url": "https://blog.wikimedia.org/feed/",
+      "title": "Diff",
+      "saved": 10
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:38:16Z"
+  "post_count": 20,
+  "fetched": "2026-05-09T20:17:51Z"
 }
