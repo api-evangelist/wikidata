@@ -49,7 +49,7 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/openapi/wikidata-mediawiki-openapi.yml
       - type: JSONSchema
         url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
-      - type: JSON-LD
+      - type: JSONLD
         url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
 
   - aid: wikidata:mediawiki-action-api
