@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wikidata REST API & MediaWiki API — Labels
+  description: 'Wikidata REST API & MediaWiki API — Labels. 2 operations. Lead operation: Wikidata Get a Label for an Item.
+    Self-contained Naftiko capability covering one Wikidata business surface.'
+  tags:
+  - Wikidata
+  - Labels
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WIKIDATA_API_KEY: WIKIDATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: mediawiki-labels
+    baseUri: https://www.wikidata.org/w/rest.php/wikibase/v0
+    description: Wikidata REST API & MediaWiki API — Labels business capability. Self-contained, no shared references.
+    resources:
+    - name: entities-items-item_id-labels-language_code
+      path: /entities/items/{item_id}/labels/{language_code}
+      operations:
+      - name: getitemlabel
+        method: GET
+        description: Wikidata Get a Label for an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: setitemlabel
+        method: PUT
+        description: Wikidata Set a Label for an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WIKIDATA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: mediawiki-labels-rest
+    port: 8080
+    description: REST adapter for Wikidata REST API & MediaWiki API — Labels. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/entities/items/{item-id}/labels/{language-code}
+      name: entities-items-item-id-labels-language-code
+      description: REST surface for entities-items-item_id-labels-language_code.
+      operations:
+      - method: GET
+        name: getitemlabel
+        description: Wikidata Get a Label for an Item
+        call: mediawiki-labels.getitemlabel
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setitemlabel
+        description: Wikidata Set a Label for an Item
+        call: mediawiki-labels.setitemlabel
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mediawiki-labels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wikidata REST API & MediaWiki API — Labels. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: wikidata-get-label-item
+      description: Wikidata Get a Label for an Item
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: mediawiki-labels.getitemlabel
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: wikidata-set-label-item
+      description: Wikidata Set a Label for an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mediawiki-labels.setitemlabel
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

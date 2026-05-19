@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wikidata REST API & MediaWiki API — Descriptions
+  description: 'Wikidata REST API & MediaWiki API — Descriptions. 1 operations. Lead operation: Wikidata Get a Description
+    for an Item. Self-contained Naftiko capability covering one Wikidata business surface.'
+  tags:
+  - Wikidata
+  - Descriptions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WIKIDATA_API_KEY: WIKIDATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: mediawiki-descriptions
+    baseUri: https://www.wikidata.org/w/rest.php/wikibase/v0
+    description: Wikidata REST API & MediaWiki API — Descriptions business capability. Self-contained, no shared references.
+    resources:
+    - name: entities-items-item_id-descriptions-language_code
+      path: /entities/items/{item_id}/descriptions/{language_code}
+      operations:
+      - name: getitemdescription
+        method: GET
+        description: Wikidata Get a Description for an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WIKIDATA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: mediawiki-descriptions-rest
+    port: 8080
+    description: REST adapter for Wikidata REST API & MediaWiki API — Descriptions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/entities/items/{item-id}/descriptions/{language-code}
+      name: entities-items-item-id-descriptions-language-code
+      description: REST surface for entities-items-item_id-descriptions-language_code.
+      operations:
+      - method: GET
+        name: getitemdescription
+        description: Wikidata Get a Description for an Item
+        call: mediawiki-descriptions.getitemdescription
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mediawiki-descriptions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wikidata REST API & MediaWiki API — Descriptions. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: wikidata-get-description-item
+      description: Wikidata Get a Description for an Item
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: mediawiki-descriptions.getitemdescription
+      outputParameters:
+      - type: object
+        mapping: $.

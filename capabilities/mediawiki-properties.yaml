@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wikidata REST API & MediaWiki API — Properties
+  description: 'Wikidata REST API & MediaWiki API — Properties. 1 operations. Lead operation: Wikidata Get a Wikidata Property.
+    Self-contained Naftiko capability covering one Wikidata business surface.'
+  tags:
+  - Wikidata
+  - Properties
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WIKIDATA_API_KEY: WIKIDATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: mediawiki-properties
+    baseUri: https://www.wikidata.org/w/rest.php/wikibase/v0
+    description: Wikidata REST API & MediaWiki API — Properties business capability. Self-contained, no shared references.
+    resources:
+    - name: entities-properties-property_id
+      path: /entities/properties/{property_id}
+      operations:
+      - name: getproperty
+        method: GET
+        description: Wikidata Get a Wikidata Property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: property_id
+          in: path
+          type: string
+          description: Wikidata property ID
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WIKIDATA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: mediawiki-properties-rest
+    port: 8080
+    description: REST adapter for Wikidata REST API & MediaWiki API — Properties. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/entities/properties/{property-id}
+      name: entities-properties-property-id
+      description: REST surface for entities-properties-property_id.
+      operations:
+      - method: GET
+        name: getproperty
+        description: Wikidata Get a Wikidata Property
+        call: mediawiki-properties.getproperty
+        with:
+          property_id: rest.property_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mediawiki-properties-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wikidata REST API & MediaWiki API — Properties. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: wikidata-get-wikidata-property
+      description: Wikidata Get a Wikidata Property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: mediawiki-properties.getproperty
+      with:
+        property_id: tools.property_id
+      outputParameters:
+      - type: object
+        mapping: $.
