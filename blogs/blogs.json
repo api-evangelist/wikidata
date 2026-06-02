@@ -2,12 +2,20 @@
   "repo": "wikidata",
   "feeds": [
     {
-      "source": "https://blog.wikimedia.org/",
+      "source": "https://blog.wikimedia.org/feed/",
       "feed_url": "https://blog.wikimedia.org/feed/",
-      "title": "Diff",
-      "saved": 10
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team",
+      "feed_url": "https://www.wikidata.org/w/index.php?title=Special:RecentChanges&feed=atom",
+      "title": "",
+      "saved": 39,
+      "method": "discovered"
     }
   ],
-  "post_count": 30,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 79,
+  "fetched": "2026-06-01T23:35:02Z"
 }
