@@ -1,0 +1,350 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wikidata REST API & MediaWiki API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Wikidata Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id",
+            "headers": [
+              {
+                "name": "If-None-Match",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              }
+            ]
+          },
+          "docs": "Returns a Wikidata item (Q-entity) with all its labels, descriptions, aliases, sitelinks, and statements in JSON format."
+        },
+        {
+          "info": {
+            "name": "Wikidata Update a Wikidata Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Applies a JSON patch to update an item. Requires authentication via OAuth2 or bot password. Includes edit comment and tags."
+        },
+        {
+          "info": {
+            "name": "Wikidata Create a New Wikidata Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new Wikidata item with provided labels, descriptions, aliases, and statements."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Label for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/labels/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ]
+          },
+          "docs": "Returns the label for a Wikidata item in a specific language."
+        },
+        {
+          "info": {
+            "name": "Wikidata Set a Label for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/labels/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Sets or replaces the label for a Wikidata item in the specified language."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Descriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Description for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/descriptions/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ]
+          },
+          "docs": "Returns the description for a Wikidata item in a specific language."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get Statements for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/statements",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "property",
+                "value": "P31",
+                "type": "query",
+                "description": "Filter statements by property ID"
+              }
+            ]
+          },
+          "docs": "Returns all statements (claims) for a Wikidata item, optionally filtered by property. Statements include main snak, qualifiers, and references."
+        },
+        {
+          "info": {
+            "name": "Wikidata Add a Statement to an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/statements",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Adds a new statement (claim) to a Wikidata item."
+        },
+        {
+          "info": {
+            "name": "Wikidata Get a Single Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/statements/:statement_id",
+            "params": [
+              {
+                "name": "statement_id",
+                "value": "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9",
+                "type": "path",
+                "description": "Statement ID (Q{itemId}${guid})"
+              }
+            ]
+          },
+          "docs": "Returns a single statement by its globally unique statement ID."
+        },
+        {
+          "info": {
+            "name": "Wikidata Delete a Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/statements/:statement_id",
+            "params": [
+              {
+                "name": "statement_id",
+                "value": "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Removes a statement from its parent item."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Wikidata Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/properties/:property_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "P31",
+                "type": "path",
+                "description": "Wikidata property ID"
+              }
+            ]
+          },
+          "docs": "Returns a Wikidata property (P-entity) with labels, descriptions, and statements."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
