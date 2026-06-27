@@ -65,13 +65,13 @@ apis:
     properties:
       - type: Documentation
         url: https://www.mediawiki.org/wiki/Wikibase/API
-      - type: SDK
+      - type: SDKs
         url: https://pypi.org/project/pywikibot/
         title: Pywikibot (Python)
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/wikibase-sdk
         title: wikibase-sdk (JavaScript)
-      - type: SDK
+      - type: SDKs
         url: https://www.wikidata.org/wiki/Wikidata:Tools/Wikidata_Toolkit
         title: Wikidata Toolkit (Java)
   - aid: wikidata:sparql-query-service
