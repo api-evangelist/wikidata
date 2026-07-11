@@ -124,6 +124,10 @@ apis:
       - type: Documentation
         url: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
 common:
+  - type: VulnerabilityDisclosure
+    url: security/wikidata-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/wikidata-domain-security.yml
   - type: Authentication
     url: authentication/wikidata-authentication.yml
   - type: OAuthScopes

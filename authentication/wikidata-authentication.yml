@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wikidata-mediawiki-openapi.yml
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - cookie
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+    tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+    scopes: 2
+  sources:
+  - openapi/wikidata-mediawiki-openapi.yml
+- name: MediaWikiSession
+  type: apiKey
+  in: cookie
+  parameter: wikidataSession
+  sources:
+  - openapi/wikidata-mediawiki-openapi.yml
