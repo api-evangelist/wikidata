@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wikidata-mediawiki-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/wikidata-mediawiki-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+    tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+scopes:
+- scope: createeditmovepage
+  description: Create new items
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/wikidata-mediawiki-openapi.yml
+- scope: editpage
+  description: Edit Wikidata items
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/wikidata-mediawiki-openapi.yml

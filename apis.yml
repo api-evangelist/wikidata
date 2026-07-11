@@ -124,6 +124,10 @@ apis:
       - type: Documentation
         url: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
 common:
+  - type: Authentication
+    url: authentication/wikidata-authentication.yml
+  - type: OAuthScopes
+    url: scopes/wikidata-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/wikidata-wf
   - type: Website
