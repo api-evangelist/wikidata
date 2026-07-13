@@ -5,14 +5,14 @@
       "source": "https://diff.wikimedia.org/feed/",
       "feed_url": "https://diff.wikimedia.org/feed/",
       "title": "",
-      "saved": 10,
+      "saved": 0,
       "method": "feed"
     },
     {
       "source": "https://www.wikidata.org/w/index.php?title=Special:RecentChanges&feed=atom",
       "feed_url": "https://www.wikidata.org/w/index.php?title=Special:RecentChanges&feed=atom",
       "title": "",
-      "saved": 31,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -23,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 186,
-  "fetched": "2026-06-27T12:03:07Z"
+  "post_count": 235,
+  "fetched": "2026-07-11T11:50:51Z"
 }
