@@ -124,6 +124,8 @@ apis:
       - type: Documentation
         url: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
 common:
+  - type: AgenticAccess
+    url: agentic-access/wikidata-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/wikidata-vulnerability-disclosure.yml
   - type: DomainSecurity
