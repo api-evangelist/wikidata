@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: Wikidata REST API & MediaWiki Descriptions API
+  description: Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.
+  version: '1.0'
+  contact:
+    name: Wikidata Support
+    url: https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team
+  license:
+    name: CC0 1.0 Universal (Public Domain)
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+- url: https://www.wikidata.org/w/rest.php/wikibase/v0
+  description: Wikibase REST API (Beta)
+- url: https://www.wikidata.org/w/api.php
+  description: MediaWiki Action API
+tags:
+- name: Descriptions
+  description: Description management
+paths:
+  /entities/items/{item_id}/descriptions/{language_code}:
+    get:
+      operationId: getItemDescription
+      summary: Wikidata Get a Description for an Item
+      description: Returns the description for a Wikidata item in a specific language.
+      tags:
+      - Descriptions
+      parameters:
+      - $ref: '#/components/parameters/ItemId'
+      - $ref: '#/components/parameters/LanguageCode'
+      responses:
+        '200':
+          description: Description value
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                getItemDescription200Example:
+                  summary: Default getItemDescription 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
+        '404':
+          description: Description not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    LanguageCode:
+      name: language_code
+      in: path
+      required: true
+      description: BCP 47 language code
+      schema:
+        type: string
+      example: en
+    ItemId:
+      name: item_id
+      in: path
+      required: true
+      description: Wikidata item ID
+      schema:
+        type: string
+        pattern: ^Q\d+$
+      example: Q42
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+          tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+          scopes:
+            editpage: Edit Wikidata items
+            createeditmovepage: Create new items
+    MediaWikiSession:
+      type: apiKey
+      in: cookie
+      name: wikidataSession

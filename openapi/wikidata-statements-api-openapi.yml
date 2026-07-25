@@ -1,0 +1,314 @@
+openapi: 3.1.0
+info:
+  title: Wikidata REST API & MediaWiki Descriptions Statements API
+  description: Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.
+  version: '1.0'
+  contact:
+    name: Wikidata Support
+    url: https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team
+  license:
+    name: CC0 1.0 Universal (Public Domain)
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+- url: https://www.wikidata.org/w/rest.php/wikibase/v0
+  description: Wikibase REST API (Beta)
+- url: https://www.wikidata.org/w/api.php
+  description: MediaWiki Action API
+tags:
+- name: Statements
+  description: Statement (claim) operations
+paths:
+  /entities/items/{item_id}/statements:
+    get:
+      operationId: getItemStatements
+      summary: Wikidata Get Statements for an Item
+      description: Returns all statements (claims) for a Wikidata item, optionally filtered by property. Statements include main snak, qualifiers, and references.
+      tags:
+      - Statements
+      parameters:
+      - $ref: '#/components/parameters/ItemId'
+      - name: property
+        in: query
+        schema:
+          type: string
+          pattern: ^P\d+$
+        description: Filter statements by property ID
+        example: P31
+      responses:
+        '200':
+          description: Item statements
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Statement'
+              examples:
+                getItemStatements200Example:
+                  summary: Default getItemStatements 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42
+                    type: item
+                    labels:
+                      en: Douglas Adams
+                      fr: Douglas Adams
+                      de: Douglas Adams
+                    descriptions:
+                      en: English author and humorist
+                      fr: auteur et humoriste anglais
+                    aliases:
+                      en:
+                      - DNA
+                      - Douglas Noel Adams
+                    statements:
+                      P31:
+                      - id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                        rank: normal
+                        property:
+                          id: P31
+                        value:
+                          type: value
+                          content: Q5
+                    sitelinks:
+                      enwiki:
+                        title: Douglas Adams
+                        url: https://en.wikipedia.org/wiki/Douglas_Adams
+        '404':
+          description: Item not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: addItemStatement
+      summary: Wikidata Add a Statement to an Item
+      description: Adds a new statement (claim) to a Wikidata item.
+      tags:
+      - Statements
+      security:
+      - OAuth2: []
+      - MediaWikiSession: []
+      parameters:
+      - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatementCreate'
+      responses:
+        '201':
+          description: Statement added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                addItemStatement201Example:
+                  summary: Default addItemStatement 201 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                    rank: normal
+                    property:
+                      id: P31
+                    value:
+                      type: value
+                      content: Q5
+                    qualifiers: []
+                    references: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /statements/{statement_id}:
+    get:
+      operationId: getStatement
+      summary: Wikidata Get a Single Statement
+      description: Returns a single statement by its globally unique statement ID.
+      tags:
+      - Statements
+      parameters:
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Statement ID (Q{itemId}${guid})
+        example: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+      responses:
+        '200':
+          description: Statement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+              examples:
+                getStatement200Example:
+                  summary: Default getStatement 200 response
+                  x-microcks-default: true
+                  value:
+                    id: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+                    rank: normal
+                    property:
+                      id: P31
+                    value:
+                      type: value
+                      content: Q5
+                    qualifiers: []
+                    references: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteStatement
+      summary: Wikidata Delete a Statement
+      description: Removes a statement from its parent item.
+      tags:
+      - Statements
+      security:
+      - OAuth2: []
+      - MediaWikiSession: []
+      parameters:
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: Edit summary
+      responses:
+        '200':
+          description: Statement deleted
+        '404':
+          description: Statement not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    DataValue:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - value
+          - somevalue
+          - novalue
+        content:
+          description: Value content — depends on property datatype
+          oneOf:
+          - type: string
+          - type: number
+          - type: object
+          - type: 'null'
+    StatementCreate:
+      type: object
+      required:
+      - property
+      - value
+      properties:
+        property:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        rank:
+          type: string
+          enum:
+          - preferred
+          - normal
+          - deprecated
+          default: normal
+        qualifiers:
+          type: array
+          items:
+            type: object
+        references:
+          type: array
+          items:
+            type: object
+        comment:
+          type: string
+    Statement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique statement ID
+        rank:
+          type: string
+          enum:
+          - preferred
+          - normal
+          - deprecated
+        property:
+          type: object
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        qualifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: object
+                properties:
+                  id:
+                    type: string
+              value:
+                $ref: '#/components/schemas/DataValue'
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              hash:
+                type: string
+              parts:
+                type: array
+                items:
+                  type: object
+  parameters:
+    ItemId:
+      name: item_id
+      in: path
+      required: true
+      description: Wikidata item ID
+      schema:
+        type: string
+        pattern: ^Q\d+$
+      example: Q42
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+          tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+          scopes:
+            editpage: Edit Wikidata items
+            createeditmovepage: Create new items
+    MediaWikiSession:
+      type: apiKey
+      in: cookie
+      name: wikidataSession

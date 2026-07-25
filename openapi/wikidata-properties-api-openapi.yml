@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Wikidata REST API & MediaWiki Descriptions Properties API
+  description: Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.
+  version: '1.0'
+  contact:
+    name: Wikidata Support
+    url: https://www.wikidata.org/wiki/Wikidata:Contact_the_development_team
+  license:
+    name: CC0 1.0 Universal (Public Domain)
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+- url: https://www.wikidata.org/w/rest.php/wikibase/v0
+  description: Wikibase REST API (Beta)
+- url: https://www.wikidata.org/w/api.php
+  description: MediaWiki Action API
+tags:
+- name: Properties
+  description: Wikidata property (P-entity) operations
+paths:
+  /entities/properties/{property_id}:
+    get:
+      operationId: getProperty
+      summary: Wikidata Get a Wikidata Property
+      description: Returns a Wikidata property (P-entity) with labels, descriptions, and statements.
+      tags:
+      - Properties
+      parameters:
+      - name: property_id
+        in: path
+        required: true
+        description: Wikidata property ID
+        schema:
+          type: string
+          pattern: ^P\d+$
+        example: P31
+      responses:
+        '200':
+          description: Property details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+              examples:
+                getProperty200Example:
+                  summary: Default getProperty 200 response
+                  x-microcks-default: true
+                  value:
+                    id: P31
+                    type: property
+                    datatype: wikibase-item
+                    labels:
+                      en: instance of
+                    descriptions:
+                      en: that class of which this subject is a particular example and member
+        '404':
+          description: Property not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^P\d+$
+          example: P31
+        type:
+          type: string
+          enum:
+          - property
+        datatype:
+          type: string
+          enum:
+          - wikibase-item
+          - wikibase-property
+          - string
+          - monolingualtext
+          - multilingual-text
+          - quantity
+          - time
+          - globe-coordinate
+          - url
+          - commonsMedia
+          - external-id
+          - math
+          - geo-shape
+          - tabular-data
+          - musical-notation
+          - lexeme
+          - sense
+          - form
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize
+          tokenUrl: https://www.mediawiki.org/w/index.php?title=Special:OAuth/token
+          scopes:
+            editpage: Edit Wikidata items
+            createeditmovepage: Create new items
+    MediaWikiSession:
+      type: apiKey
+      in: cookie
+      name: wikidataSession
