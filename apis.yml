@@ -8,9 +8,22 @@ description: >-
   individual entity access in multiple RDF formats, a real-time Server-Sent Events stream for change monitoring, and
   full database dumps for bulk data processing.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/wikidata.png
 tags:
   - Knowledge Graph
   - Linked Data
@@ -23,107 +36,173 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: wikidata:wikibase-rest-api
-    name: Wikibase REST API
-    description: >-
-      The Wikibase REST API provides OpenAPI-based read and write operations for Wikidata entities (items and
-      properties), including labels, descriptions, aliases, statements, sitelinks, and patches. Authentication via
-      OAuth2 or MediaWiki session is required for write operations.
-    humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
-    baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
-    tags:
-      - Knowledge Graph
-      - Entities
-      - Items
-      - Properties
-      - Statements
-      - Linked Data
-    properties:
-      - type: Documentation
-        url: https://www.wikidata.org/wiki/Wikidata:REST_API
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/openapi/wikidata-mediawiki-openapi.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
-      - type: JSONLD
-        url: https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
-  - aid: wikidata:mediawiki-action-api
-    name: MediaWiki Action API
-    description: >-
-      The MediaWiki Action API provides batch entity retrieval, editing, and search for Wikidata via wbgetentities,
-      wbsearchentities, wbeditentity, and other actions. Supports up to 50 entities per request. Accessible at
-      wikidata.org/w/api.php.
-    humanURL: https://www.mediawiki.org/wiki/Wikibase/API
-    baseURL: https://www.wikidata.org/w/api.php
-    tags:
-      - MediaWiki
-      - Batch Operations
-      - Entity Retrieval
-      - Search
-    properties:
-      - type: Documentation
-        url: https://www.mediawiki.org/wiki/Wikibase/API
-      - type: SDKs
-        url: https://pypi.org/project/pywikibot/
-        title: Pywikibot (Python)
-      - type: SDKs
-        url: https://www.npmjs.com/package/wikibase-sdk
-        title: wikibase-sdk (JavaScript)
-      - type: SDKs
-        url: https://www.wikidata.org/wiki/Wikidata:Tools/Wikidata_Toolkit
-        title: Wikidata Toolkit (Java)
-  - aid: wikidata:sparql-query-service
-    name: SPARQL Query Service
-    description: >-
-      The Wikidata Query Service provides a SPARQL 1.1 endpoint at query.wikidata.org for running complex graph queries
-      over the full Wikidata knowledge base. Supports federated queries, GeoSPARQL, and time-aware queries. Data is CC0
-      licensed.
-    humanURL: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
-    baseURL: https://query.wikidata.org/sparql
-    tags:
-      - SPARQL
-      - Graph Query
-      - Linked Data
-      - Open Data
-    properties:
-      - type: Documentation
-        url: https://www.mediawiki.org/wiki/Wikidata_Query_Service/User_Manual
-      - type: APIReference
-        url: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries/examples
-  - aid: wikidata:linked-data-interface
-    name: Linked Data Interface
-    description: >-
-      The Wikidata Linked Data Interface provides individual entity data via content negotiation at
-      http://www.wikidata.org/entity/{QID}. Supports JSON, JSON-LD, RDF/XML, Turtle, and N-Triples output formats. No
-      authentication required.
-    humanURL: https://www.wikidata.org/wiki/Wikidata:Data_access#Linked_Data_Interface
-    baseURL: https://www.wikidata.org/entity
-    tags:
-      - Linked Data
-      - RDF
-      - JSON-LD
-      - Content Negotiation
-    properties:
-      - type: Documentation
-        url: https://www.wikidata.org/wiki/Wikidata:Data_access#Linked_Data_Interface
-  - aid: wikidata:event-stream
-    name: Recent Changes Event Stream
-    description: >-
-      The Wikimedia Event Stream provides real-time Server-Sent Events (SSE) for Wikidata changes, revision creations,
-      and page events. Available at stream.wikimedia.org. Ideal for monitoring Wikidata edits in near-real-time.
-    humanURL: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
-    baseURL: https://stream.wikimedia.org/v2/stream
-    tags:
-      - Event Streaming
-      - Real-time
-      - Server-Sent Events
-      - Change Detection
-    properties:
-      - type: Documentation
-        url: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
+- aid: wikidata:mediawiki-action-api
+  name: MediaWiki Action API
+  description: >-
+    The MediaWiki Action API provides batch entity retrieval, editing, and search for Wikidata via wbgetentities,
+    wbsearchentities, wbeditentity, and other actions. Supports up to 50 entities per request. Accessible
+    at wikidata.org/w/api.php.
+  humanURL: https://www.mediawiki.org/wiki/Wikibase/API
+  baseURL: https://www.wikidata.org/w/api.php
+  tags:
+  - MediaWiki
+  - Batch Operations
+  - Entity Retrieval
+  - Search
+  properties:
+  - type: Documentation
+    url: https://www.mediawiki.org/wiki/Wikibase/API
+  - type: SDKs
+    url: https://pypi.org/project/pywikibot/
+    title: Pywikibot (Python)
+  - type: SDKs
+    url: https://www.npmjs.com/package/wikibase-sdk
+    title: wikibase-sdk (JavaScript)
+  - type: SDKs
+    url: https://www.wikidata.org/wiki/Wikidata:Tools/Wikidata_Toolkit
+    title: Wikidata Toolkit (Java)
+- aid: wikidata:sparql-query-service
+  name: SPARQL Query Service
+  description: >-
+    The Wikidata Query Service provides a SPARQL 1.1 endpoint at query.wikidata.org for running complex
+    graph queries over the full Wikidata knowledge base. Supports federated queries, GeoSPARQL, and time-aware
+    queries. Data is CC0 licensed.
+  humanURL: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
+  baseURL: https://query.wikidata.org/sparql
+  tags:
+  - SPARQL
+  - Graph Query
+  - Linked Data
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://www.mediawiki.org/wiki/Wikidata_Query_Service/User_Manual
+  - type: APIReference
+    url: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries/examples
+- aid: wikidata:linked-data-interface
+  name: Linked Data Interface
+  description: >-
+    The Wikidata Linked Data Interface provides individual entity data via content negotiation at http://www.wikidata.org/entity/{QID}.
+    Supports JSON, JSON-LD, RDF/XML, Turtle, and N-Triples output formats. No authentication required.
+  humanURL: https://www.wikidata.org/wiki/Wikidata:Data_access#Linked_Data_Interface
+  baseURL: https://www.wikidata.org/entity
+  tags:
+  - Linked Data
+  - RDF
+  - JSON-LD
+  - Content Negotiation
+  properties:
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:Data_access#Linked_Data_Interface
+- aid: wikidata:event-stream
+  name: Recent Changes Event Stream
+  description: >-
+    The Wikimedia Event Stream provides real-time Server-Sent Events (SSE) for Wikidata changes, revision
+    creations, and page events. Available at stream.wikimedia.org. Ideal for monitoring Wikidata edits
+    in near-real-time.
+  humanURL: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
+  baseURL: https://stream.wikimedia.org/v2/stream
+  tags:
+  - Event Streaming
+  - Real-time
+  - Server-Sent Events
+  - Change Detection
+  properties:
+  - type: Documentation
+    url: https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams
+- aid: wikidata:wikidata-descriptions-api
+  name: Wikidata Descriptions API
+  description: Description management
+  humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
+  baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
+  tags:
+  - Descriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/wikidata-descriptions-api-openapi.yml
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:REST_API
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
+- aid: wikidata:wikidata-items-api
+  name: Wikidata Items API
+  description: Wikidata item (Q-entity) operations
+  humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
+  baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/wikidata-items-api-openapi.yml
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:REST_API
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
+- aid: wikidata:wikidata-labels-api
+  name: Wikidata Labels API
+  description: Label management
+  humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
+  baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
+  tags:
+  - Labels
+  properties:
+  - type: OpenAPI
+    url: openapi/wikidata-labels-api-openapi.yml
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:REST_API
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
+- aid: wikidata:wikidata-properties-api
+  name: Wikidata Properties API
+  description: Wikidata property (P-entity) operations
+  humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
+  baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
+  tags:
+  - Properties
+  properties:
+  - type: OpenAPI
+    url: openapi/wikidata-properties-api-openapi.yml
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:REST_API
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
+- aid: wikidata:wikidata-statements-api
+  name: Wikidata Statements API
+  description: Statement (claim) operations
+  humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
+  baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/wikidata-statements-api-openapi.yml
+  - type: Documentation
+    url: https://www.wikidata.org/wiki/Wikidata:REST_API
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-schema/wikidata-entity-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/wikidata/overview
   - type: AgenticAccess
     url: agentic-access/wikidata-agentic-access.yml
   - type: VulnerabilityDisclosure
