@@ -1,0 +1,626 @@
+{
+  "info": {
+    "_postman_id": "b4c37a86-c791-4916-8dd0-2c49279e8337",
+    "name": "Wikidata REST API & MediaWiki Descriptions Statements API",
+    "description": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:50.000Z",
+    "updatedAt": "2026-07-28T03:29:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b4c37a86-c791-4916-8dd0-2c49279e8337"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "{item_id}",
+              "item": [
+                {
+                  "name": "statements",
+                  "item": [
+                    {
+                      "name": "Wikidata Get Statements for an Item",
+                      "id": "5d89601b-b2df-4772-94e4-5badd287c9cb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id/statements?property=P535",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id",
+                            "statements"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter statements by property ID",
+                              "key": "property",
+                              "value": "P535"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "2d81c7e8-f3a3-459c-806e-bb316552ee65",
+                              "key": "item_id",
+                              "value": "Q68",
+                              "description": "(Required) Wikidata item ID"
+                            }
+                          ]
+                        },
+                        "description": "Returns all statements (claims) for a Wikidata item, optionally filtered by property. Statements include main snak, qualifiers, and references."
+                      },
+                      "response": [
+                        {
+                          "id": "50e6d120-b8a0-4271-b23f-ef07ce5809ad",
+                          "name": "Item statements",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/statements?property=P535",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "statements"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter statements by property ID",
+                                  "key": "property",
+                                  "value": "P535"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "item_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"aliquip_7\": [\n    {\n      \"id\": \"<string>\",\n      \"rank\": \"preferred\",\n      \"property\": {\n        \"id\": \"P3\"\n      },\n      \"value\": {\n        \"type\": \"somevalue\",\n        \"content\": \"<string>\"\n      },\n      \"qualifiers\": [\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"value\",\n            \"content\": \"<string>\"\n          }\n        },\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"value\",\n            \"content\": \"<string>\"\n          }\n        }\n      ],\n      \"references\": [\n        {\n          \"hash\": \"<string>\"\n        },\n        {\n          \"hash\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"rank\": \"preferred\",\n      \"property\": {\n        \"id\": \"P487164\"\n      },\n      \"value\": {\n        \"type\": \"value\",\n        \"content\": \"<string>\"\n      },\n      \"qualifiers\": [\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"somevalue\",\n            \"content\": \"<string>\"\n          }\n        },\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"novalue\",\n            \"content\": \"<string>\"\n          }\n        }\n      ],\n      \"references\": [\n        {\n          \"hash\": \"<string>\"\n        },\n        {\n          \"hash\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"eu_6\": [\n    {\n      \"id\": \"<string>\",\n      \"rank\": \"deprecated\",\n      \"property\": {\n        \"id\": \"P482\"\n      },\n      \"value\": {\n        \"type\": \"somevalue\",\n        \"content\": \"<string>\"\n      },\n      \"qualifiers\": [\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"value\",\n            \"content\": \"<string>\"\n          }\n        },\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"somevalue\",\n            \"content\": \"<string>\"\n          }\n        }\n      ],\n      \"references\": [\n        {\n          \"hash\": \"<string>\"\n        },\n        {\n          \"hash\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"rank\": \"normal\",\n      \"property\": {\n        \"id\": \"P446\"\n      },\n      \"value\": {\n        \"type\": \"value\",\n        \"content\": \"<string>\"\n      },\n      \"qualifiers\": [\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"novalue\",\n            \"content\": \"<string>\"\n          }\n        },\n        {\n          \"property\": {\n            \"id\": \"<string>\"\n          },\n          \"value\": {\n            \"type\": \"novalue\",\n            \"content\": \"<string>\"\n          }\n        }\n      ],\n      \"references\": [\n        {\n          \"hash\": \"<string>\"\n        },\n        {\n          \"hash\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:29:50.000Z",
+                          "updatedAt": "2026-07-28T03:29:50.000Z",
+                          "uid": "35240-50e6d120-b8a0-4271-b23f-ef07ce5809ad"
+                        },
+                        {
+                          "id": "1420cb17-9840-4318-b6cd-62b850d6ac56",
+                          "name": "Item not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/statements?property=P535",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "statements"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter statements by property ID",
+                                  "key": "property",
+                                  "value": "P535"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "item_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:29:50.000Z",
+                          "updatedAt": "2026-07-28T03:29:50.000Z",
+                          "uid": "35240-1420cb17-9840-4318-b6cd-62b850d6ac56"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:29:50.000Z",
+                      "updatedAt": "2026-07-28T03:29:50.000Z",
+                      "uid": "35240-5d89601b-b2df-4772-94e4-5badd287c9cb"
+                    },
+                    {
+                      "name": "Wikidata Add a Statement to an Item",
+                      "id": "37f5412e-c461-4707-8909-72aa1c91bae3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "editpage createeditmovepage",
+                              "type": "string"
+                            },
+                            {
+                              "key": "accessTokenUrl",
+                              "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "authorization_code",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"property\": {\n    \"id\": \"P353362044\"\n  },\n  \"value\": {\n    \"type\": \"novalue\",\n    \"content\": \"<string>\"\n  },\n  \"rank\": \"normal\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id/statements",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id",
+                            "statements"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3fdce9ce-04ee-4578-8edd-ff58a7c4b95f",
+                              "key": "item_id",
+                              "value": "Q68",
+                              "description": "(Required) Wikidata item ID"
+                            }
+                          ]
+                        },
+                        "description": "Adds a new statement (claim) to a Wikidata item."
+                      },
+                      "response": [
+                        {
+                          "id": "5231c4ee-0c28-4202-9b30-48047c1eb52b",
+                          "name": "Statement added",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"property\": {\n    \"id\": \"P353362044\"\n  },\n  \"value\": {\n    \"type\": \"novalue\",\n    \"content\": \"<string>\"\n  },\n  \"rank\": \"normal\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/statements",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "statements"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "item_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"rank\": \"normal\",\n  \"property\": {\n    \"id\": \"P687669891\"\n  },\n  \"value\": {\n    \"type\": \"value\",\n    \"content\": \"<string>\"\n  },\n  \"qualifiers\": [\n    {\n      \"property\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": {\n        \"type\": \"novalue\",\n        \"content\": \"<string>\"\n      }\n    },\n    {\n      \"property\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": {\n        \"type\": \"novalue\",\n        \"content\": \"<string>\"\n      }\n    }\n  ],\n  \"references\": [\n    {\n      \"hash\": \"<string>\"\n    },\n    {\n      \"hash\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:29:50.000Z",
+                          "updatedAt": "2026-07-28T03:29:50.000Z",
+                          "uid": "35240-5231c4ee-0c28-4202-9b30-48047c1eb52b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:29:50.000Z",
+                      "updatedAt": "2026-07-28T03:29:50.000Z",
+                      "uid": "35240-37f5412e-c461-4707-8909-72aa1c91bae3"
+                    }
+                  ],
+                  "id": "f93ee7b2-83e0-4774-aef3-be025f07dcfe",
+                  "createdAt": "2026-07-28T03:29:50.000Z",
+                  "updatedAt": "2026-07-28T03:29:50.000Z",
+                  "uid": "35240-f93ee7b2-83e0-4774-aef3-be025f07dcfe"
+                }
+              ],
+              "id": "b9839fcf-31c7-473d-a784-fed0d03dc66c",
+              "createdAt": "2026-07-28T03:29:50.000Z",
+              "updatedAt": "2026-07-28T03:29:50.000Z",
+              "uid": "35240-b9839fcf-31c7-473d-a784-fed0d03dc66c"
+            }
+          ],
+          "id": "554e57b2-a10d-4b1c-99db-0c41ad627512",
+          "createdAt": "2026-07-28T03:29:50.000Z",
+          "updatedAt": "2026-07-28T03:29:50.000Z",
+          "uid": "35240-554e57b2-a10d-4b1c-99db-0c41ad627512"
+        }
+      ],
+      "id": "2020aa2f-db1d-4d7c-a538-7ae4a0acc713",
+      "createdAt": "2026-07-28T03:29:50.000Z",
+      "updatedAt": "2026-07-28T03:29:50.000Z",
+      "uid": "35240-2020aa2f-db1d-4d7c-a538-7ae4a0acc713"
+    },
+    {
+      "name": "statements",
+      "item": [
+        {
+          "name": "{statement_id}",
+          "item": [
+            {
+              "name": "Wikidata Get a Single Statement",
+              "id": "bfdbc41c-7482-451f-bc75-7beb6a928cd9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/statements/:statement_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statements",
+                    ":statement_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2f9ec65d-ddb3-46ca-ab2e-b1570fae5217",
+                      "key": "statement_id",
+                      "value": "<string>",
+                      "description": "(Required) Statement ID (Q{itemId}${guid})"
+                    }
+                  ]
+                },
+                "description": "Returns a single statement by its globally unique statement ID."
+              },
+              "response": [
+                {
+                  "id": "7e934810-8207-4aaf-84f4-2eb317431a1b",
+                  "name": "Statement",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statement_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statement_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statement_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"rank\": \"normal\",\n  \"property\": {\n    \"id\": \"P687669891\"\n  },\n  \"value\": {\n    \"type\": \"value\",\n    \"content\": \"<string>\"\n  },\n  \"qualifiers\": [\n    {\n      \"property\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": {\n        \"type\": \"novalue\",\n        \"content\": \"<string>\"\n      }\n    },\n    {\n      \"property\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": {\n        \"type\": \"novalue\",\n        \"content\": \"<string>\"\n      }\n    }\n  ],\n  \"references\": [\n    {\n      \"hash\": \"<string>\"\n    },\n    {\n      \"hash\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:29:50.000Z",
+                  "updatedAt": "2026-07-28T03:29:50.000Z",
+                  "uid": "35240-7e934810-8207-4aaf-84f4-2eb317431a1b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:29:50.000Z",
+              "updatedAt": "2026-07-28T03:29:50.000Z",
+              "uid": "35240-bfdbc41c-7482-451f-bc75-7beb6a928cd9"
+            },
+            {
+              "name": "Wikidata Delete a Statement",
+              "id": "0ee0b1cb-82d9-4fed-b4b3-c9b4a7a9e2ed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "editpage createeditmovepage",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/statements/:statement_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statements",
+                    ":statement_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "ab96db2c-1db7-40f5-b5e5-6b92f027965b",
+                      "key": "statement_id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Removes a statement from its parent item."
+              },
+              "response": [
+                {
+                  "id": "376b03db-5b2a-44c5-ad84-28fe4e2fdcde",
+                  "name": "Statement deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"comment\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statement_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statement_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statement_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:29:50.000Z",
+                  "updatedAt": "2026-07-28T03:29:50.000Z",
+                  "uid": "35240-376b03db-5b2a-44c5-ad84-28fe4e2fdcde"
+                },
+                {
+                  "id": "7fe7ab4c-7233-4ddb-a372-94847521d890",
+                  "name": "Statement not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"comment\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statement_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statement_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statement_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:29:50.000Z",
+                  "updatedAt": "2026-07-28T03:29:50.000Z",
+                  "uid": "35240-7fe7ab4c-7233-4ddb-a372-94847521d890"
+                }
+              ],
+              "createdAt": "2026-07-28T03:29:50.000Z",
+              "updatedAt": "2026-07-28T03:29:50.000Z",
+              "uid": "35240-0ee0b1cb-82d9-4fed-b4b3-c9b4a7a9e2ed"
+            }
+          ],
+          "id": "034f8d2c-e87c-43fb-b247-afac7a32dfff",
+          "createdAt": "2026-07-28T03:29:50.000Z",
+          "updatedAt": "2026-07-28T03:29:50.000Z",
+          "uid": "35240-034f8d2c-e87c-43fb-b247-afac7a32dfff"
+        }
+      ],
+      "id": "ff9ce223-6e31-4649-bbdf-273ebf4e95b4",
+      "createdAt": "2026-07-28T03:29:50.000Z",
+      "updatedAt": "2026-07-28T03:29:50.000Z",
+      "uid": "35240-ff9ce223-6e31-4649-bbdf-273ebf4e95b4"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    }
+  ]
+}

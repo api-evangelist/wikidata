@@ -1,0 +1,202 @@
+{
+  "info": {
+    "_postman_id": "4f445cad-d8d8-4144-80d0-0ee9f2e3cbce",
+    "name": "Wikidata REST API & MediaWiki Descriptions API",
+    "description": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:46.000Z",
+    "updatedAt": "2026-07-28T03:29:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4f445cad-d8d8-4144-80d0-0ee9f2e3cbce"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "{item_id}",
+              "item": [
+                {
+                  "name": "descriptions",
+                  "item": [
+                    {
+                      "name": "{language_code}",
+                      "item": [
+                        {
+                          "name": "Wikidata Get a Description for an Item",
+                          "id": "b3b9f151-11b8-408d-ac2c-72e951356948",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/descriptions/:language_code",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "descriptions",
+                                ":language_code"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ccca8908-df28-405d-9f44-949fe74a06cc",
+                                  "key": "item_id",
+                                  "value": "Q3517504486",
+                                  "description": "(Required) Wikidata item ID"
+                                },
+                                {
+                                  "id": "d3f387bb-29e7-4650-b308-097f3cf8eb05",
+                                  "key": "language_code",
+                                  "value": "<string>",
+                                  "description": "(Required) BCP 47 language code"
+                                }
+                              ]
+                            },
+                            "description": "Returns the description for a Wikidata item in a specific language."
+                          },
+                          "response": [
+                            {
+                              "id": "bd37ee86-3afa-484f-b9ec-5c9182075231",
+                              "name": "Description value",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/descriptions/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "descriptions",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-07-28T03:29:46.000Z",
+                              "updatedAt": "2026-07-28T03:29:46.000Z",
+                              "uid": "35240-bd37ee86-3afa-484f-b9ec-5c9182075231"
+                            },
+                            {
+                              "id": "974f6237-6bcf-4cca-809b-29b6a4a0a574",
+                              "name": "Description not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/descriptions/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "descriptions",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:29:46.000Z",
+                              "updatedAt": "2026-07-28T03:29:46.000Z",
+                              "uid": "35240-974f6237-6bcf-4cca-809b-29b6a4a0a574"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:29:46.000Z",
+                          "updatedAt": "2026-07-28T03:29:46.000Z",
+                          "uid": "35240-b3b9f151-11b8-408d-ac2c-72e951356948"
+                        }
+                      ],
+                      "id": "37fa3ee4-33f8-4b30-bf3c-35381bbf640e",
+                      "createdAt": "2026-07-28T03:29:46.000Z",
+                      "updatedAt": "2026-07-28T03:29:46.000Z",
+                      "uid": "35240-37fa3ee4-33f8-4b30-bf3c-35381bbf640e"
+                    }
+                  ],
+                  "id": "91f54ec4-cd2c-4c3c-9135-72edabafbe01",
+                  "createdAt": "2026-07-28T03:29:46.000Z",
+                  "updatedAt": "2026-07-28T03:29:46.000Z",
+                  "uid": "35240-91f54ec4-cd2c-4c3c-9135-72edabafbe01"
+                }
+              ],
+              "id": "4407151c-80d8-4539-b409-f33cb1298106",
+              "createdAt": "2026-07-28T03:29:46.000Z",
+              "updatedAt": "2026-07-28T03:29:46.000Z",
+              "uid": "35240-4407151c-80d8-4539-b409-f33cb1298106"
+            }
+          ],
+          "id": "1cc322cc-6eaf-49cb-98da-9e91f70df765",
+          "createdAt": "2026-07-28T03:29:46.000Z",
+          "updatedAt": "2026-07-28T03:29:46.000Z",
+          "uid": "35240-1cc322cc-6eaf-49cb-98da-9e91f70df765"
+        }
+      ],
+      "id": "075cc390-9514-405f-90f9-9bdc1b218277",
+      "createdAt": "2026-07-28T03:29:46.000Z",
+      "updatedAt": "2026-07-28T03:29:46.000Z",
+      "uid": "35240-075cc390-9514-405f-90f9-9bdc1b218277"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    }
+  ]
+}

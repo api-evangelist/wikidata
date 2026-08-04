@@ -1,0 +1,404 @@
+{
+  "info": {
+    "_postman_id": "8e178a5a-d852-405f-8ba3-ab7c4041099d",
+    "name": "Wikidata REST API & MediaWiki Descriptions Labels API",
+    "description": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:48.000Z",
+    "updatedAt": "2026-07-28T03:29:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8e178a5a-d852-405f-8ba3-ab7c4041099d"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "{item_id}",
+              "item": [
+                {
+                  "name": "labels",
+                  "item": [
+                    {
+                      "name": "{language_code}",
+                      "item": [
+                        {
+                          "name": "Wikidata Get a Label for an Item",
+                          "id": "82c3a5e8-1eee-40ac-9e53-3ae9a5c95360",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "labels",
+                                ":language_code"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "fa2ead1a-cab4-4c13-ba01-ad5c66d9349b",
+                                  "key": "item_id",
+                                  "value": "Q44679584",
+                                  "description": "(Required) Wikidata item ID"
+                                },
+                                {
+                                  "id": "8eafd06a-e0ed-41ff-82a2-80f852a8ea93",
+                                  "key": "language_code",
+                                  "value": "<string>",
+                                  "description": "(Required) BCP 47 language code"
+                                }
+                              ]
+                            },
+                            "description": "Returns the label for a Wikidata item in a specific language."
+                          },
+                          "response": [
+                            {
+                              "id": "c4a38454-2d29-4958-81d6-a261348fcd73",
+                              "name": "Label value",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "labels",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-07-28T03:29:48.000Z",
+                              "updatedAt": "2026-07-28T03:29:48.000Z",
+                              "uid": "35240-c4a38454-2d29-4958-81d6-a261348fcd73"
+                            },
+                            {
+                              "id": "2a5cf40d-962a-4a20-b756-8073be7b69ef",
+                              "name": "Label not found for this language",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "labels",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:29:48.000Z",
+                              "updatedAt": "2026-07-28T03:29:48.000Z",
+                              "uid": "35240-2a5cf40d-962a-4a20-b756-8073be7b69ef"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:29:48.000Z",
+                          "updatedAt": "2026-07-28T03:29:48.000Z",
+                          "uid": "35240-82c3a5e8-1eee-40ac-9e53-3ae9a5c95360"
+                        },
+                        {
+                          "name": "Wikidata Set a Label for an Item",
+                          "id": "79d76848-4d83-4c65-9c03-a1dc48d8680d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "oauth2",
+                              "oauth2": [
+                                {
+                                  "key": "scope",
+                                  "value": "editpage createeditmovepage",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "accessTokenUrl",
+                                  "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "authUrl",
+                                  "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "grant_type",
+                                  "value": "authorization_code",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "entities",
+                                "items",
+                                ":item_id",
+                                "labels",
+                                ":language_code"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "85f61ff6-e5b1-424d-a492-c2cb20dc0ebd",
+                                  "key": "item_id",
+                                  "value": "Q44679584",
+                                  "description": "(Required) Wikidata item ID"
+                                },
+                                {
+                                  "id": "7c4d67fd-404f-4d7e-b332-27e54021a2f8",
+                                  "key": "language_code",
+                                  "value": "<string>",
+                                  "description": "(Required) BCP 47 language code"
+                                }
+                              ]
+                            },
+                            "description": "Sets or replaces the label for a Wikidata item in the specified language."
+                          },
+                          "response": [
+                            {
+                              "id": "62922000-18b0-457f-ac32-03b79b567143",
+                              "name": "Label updated",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "labels",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:29:48.000Z",
+                              "updatedAt": "2026-07-28T03:29:48.000Z",
+                              "uid": "35240-62922000-18b0-457f-ac32-03b79b567143"
+                            },
+                            {
+                              "id": "cb2a70da-7a81-4e5f-a92f-3a2f68318e8e",
+                              "name": "Label created",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/entities/items/:item_id/labels/:language_code",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "entities",
+                                    "items",
+                                    ":item_id",
+                                    "labels",
+                                    ":language_code"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "item_id"
+                                    },
+                                    {
+                                      "key": "language_code"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:29:48.000Z",
+                              "updatedAt": "2026-07-28T03:29:48.000Z",
+                              "uid": "35240-cb2a70da-7a81-4e5f-a92f-3a2f68318e8e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:29:48.000Z",
+                          "updatedAt": "2026-07-28T03:29:48.000Z",
+                          "uid": "35240-79d76848-4d83-4c65-9c03-a1dc48d8680d"
+                        }
+                      ],
+                      "id": "c4b48b3e-11ba-4cf8-9dce-ddb8316a4131",
+                      "createdAt": "2026-07-28T03:29:48.000Z",
+                      "updatedAt": "2026-07-28T03:29:48.000Z",
+                      "uid": "35240-c4b48b3e-11ba-4cf8-9dce-ddb8316a4131"
+                    }
+                  ],
+                  "id": "ce5eb41f-060f-486b-b052-7d0c96e74baf",
+                  "createdAt": "2026-07-28T03:29:48.000Z",
+                  "updatedAt": "2026-07-28T03:29:48.000Z",
+                  "uid": "35240-ce5eb41f-060f-486b-b052-7d0c96e74baf"
+                }
+              ],
+              "id": "adea1b5e-943c-47d6-8315-846b9f9c6fe9",
+              "createdAt": "2026-07-28T03:29:48.000Z",
+              "updatedAt": "2026-07-28T03:29:48.000Z",
+              "uid": "35240-adea1b5e-943c-47d6-8315-846b9f9c6fe9"
+            }
+          ],
+          "id": "972ef8b0-58a9-47ad-8273-0adb6f4464d8",
+          "createdAt": "2026-07-28T03:29:48.000Z",
+          "updatedAt": "2026-07-28T03:29:48.000Z",
+          "uid": "35240-972ef8b0-58a9-47ad-8273-0adb6f4464d8"
+        }
+      ],
+      "id": "2a68199b-14d7-4e28-b172-252ce2f1329d",
+      "createdAt": "2026-07-28T03:29:48.000Z",
+      "updatedAt": "2026-07-28T03:29:48.000Z",
+      "uid": "35240-2a68199b-14d7-4e28-b172-252ce2f1329d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    }
+  ]
+}

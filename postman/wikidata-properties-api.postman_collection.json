@@ -1,0 +1,166 @@
+{
+  "info": {
+    "_postman_id": "515d50d9-a14b-4587-8fb8-758a08b204fa",
+    "name": "Wikidata REST API & MediaWiki Descriptions Properties API",
+    "description": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:49.000Z",
+    "updatedAt": "2026-07-28T03:29:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-515d50d9-a14b-4587-8fb8-758a08b204fa"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "properties",
+          "item": [
+            {
+              "name": "{property_id}",
+              "item": [
+                {
+                  "name": "Wikidata Get a Wikidata Property",
+                  "id": "487140d8-ecab-485b-a12b-6c665b64499f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/properties/:property_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "properties",
+                        ":property_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1fe85247-2d8f-48f3-9ea6-1ac274679717",
+                          "key": "property_id",
+                          "value": "P982",
+                          "description": "(Required) Wikidata property ID"
+                        }
+                      ]
+                    },
+                    "description": "Returns a Wikidata property (P-entity) with labels, descriptions, and statements."
+                  },
+                  "response": [
+                    {
+                      "id": "723320b3-a421-4699-9e64-dbcd00ccb215",
+                      "name": "Property details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/properties/:property_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "properties",
+                            ":property_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "property_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"P44203482630\",\n  \"type\": \"property\",\n  \"datatype\": \"monolingualtext\",\n  \"labels\": {\n    \"ullamco_bbe\": \"<string>\",\n    \"in_799\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"culpa_3\": \"<string>\",\n    \"reprehenderit_553\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:29:49.000Z",
+                      "updatedAt": "2026-07-28T03:29:49.000Z",
+                      "uid": "35240-723320b3-a421-4699-9e64-dbcd00ccb215"
+                    },
+                    {
+                      "id": "31a5a268-4ce0-44f6-aa02-ae2be1baf0f3",
+                      "name": "Property not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/properties/:property_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "properties",
+                            ":property_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "property_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:49.000Z",
+                      "updatedAt": "2026-07-28T03:29:49.000Z",
+                      "uid": "35240-31a5a268-4ce0-44f6-aa02-ae2be1baf0f3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:29:49.000Z",
+                  "updatedAt": "2026-07-28T03:29:49.000Z",
+                  "uid": "35240-487140d8-ecab-485b-a12b-6c665b64499f"
+                }
+              ],
+              "id": "09c6a333-7f2c-471f-814b-df61acea660a",
+              "createdAt": "2026-07-28T03:29:49.000Z",
+              "updatedAt": "2026-07-28T03:29:49.000Z",
+              "uid": "35240-09c6a333-7f2c-471f-814b-df61acea660a"
+            }
+          ],
+          "id": "2cfc2ba7-2b0d-4aec-a49b-b49344fbe51c",
+          "createdAt": "2026-07-28T03:29:49.000Z",
+          "updatedAt": "2026-07-28T03:29:49.000Z",
+          "uid": "35240-2cfc2ba7-2b0d-4aec-a49b-b49344fbe51c"
+        }
+      ],
+      "id": "656aaccb-3f35-47e9-a626-bd581c9ebfe7",
+      "createdAt": "2026-07-28T03:29:49.000Z",
+      "updatedAt": "2026-07-28T03:29:49.000Z",
+      "uid": "35240-656aaccb-3f35-47e9-a626-bd581c9ebfe7"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    }
+  ]
+}

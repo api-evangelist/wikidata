@@ -1,0 +1,22 @@
+{
+  "provider": "wikidata",
+  "sources": [
+    "wikidata-descriptions-api-openapi.yml",
+    "wikidata-items-api-openapi.yml",
+    "wikidata-labels-api-openapi.yml",
+    "wikidata-properties-api-openapi.yml",
+    "wikidata-statements-api-openapi.yml"
+  ],
+  "outputs": [
+    "wikidata-descriptions-api-openapi.yml",
+    "wikidata-items-api-openapi.yml",
+    "wikidata-labels-api-openapi.yml",
+    "wikidata-properties-api-openapi.yml",
+    "wikidata-statements-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

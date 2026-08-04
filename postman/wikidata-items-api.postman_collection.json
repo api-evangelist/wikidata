@@ -1,0 +1,823 @@
+{
+  "info": {
+    "_postman_id": "5aaa3ae0-f0fd-4889-9cc0-82edf74f2e55",
+    "name": "Wikidata REST API & MediaWiki Descriptions Items API",
+    "description": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:29:47.000Z",
+    "updatedAt": "2026-07-28T03:29:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5aaa3ae0-f0fd-4889-9cc0-82edf74f2e55"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "{item_id}",
+              "item": [
+                {
+                  "name": "Wikidata Get a Wikidata Item",
+                  "id": "e5697d1f-0d9d-4b11-a80c-4cbfec603955",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "ETag for conditional request",
+                        "key": "If-None-Match",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/items/:item_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "items",
+                        ":item_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "11287446-d24f-4d1d-a7a3-0eec1760de9d",
+                          "key": "item_id",
+                          "value": "Q80",
+                          "description": "(Required) Wikidata item ID"
+                        }
+                      ]
+                    },
+                    "description": "Returns a Wikidata item (Q-entity) with all its labels, descriptions, aliases, sitelinks, and statements in JSON format."
+                  },
+                  "response": [
+                    {
+                      "id": "b94f8040-881b-4616-a281-dc6c1adfea69",
+                      "name": "Wikidata item",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ETag for conditional request",
+                            "key": "If-None-Match",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Item revision ETag",
+                            "type": "text/plain"
+                          },
+                          "key": "ETag",
+                          "value": "<string>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "",
+                            "type": "text/plain"
+                          },
+                          "key": "Last-Modified",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"Q339\",\n  \"type\": \"item\",\n  \"labels\": {\n    \"laboris_d6\": \"<string>\",\n    \"sunt1\": \"<string>\",\n    \"ea1\": \"<string>\",\n    \"eiusmod_c44\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"Lorema\": \"<string>\",\n    \"incididunt5d\": \"<string>\",\n    \"irure_520\": \"<string>\"\n  },\n  \"aliases\": {\n    \"deserunt97c\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"consequat__2b\": [\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P698\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"novalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P83944439\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"somevalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"sitelinks\": {\n    \"in7c\": {\n      \"title\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"badges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-b94f8040-881b-4616-a281-dc6c1adfea69"
+                    },
+                    {
+                      "id": "d3b3dac5-062c-4f12-a255-c51e193ea51d",
+                      "name": "Not modified (ETag match)",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ETag for conditional request",
+                            "key": "If-None-Match",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Modified",
+                      "code": 304,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-d3b3dac5-062c-4f12-a255-c51e193ea51d"
+                    },
+                    {
+                      "id": "bc8e85de-650c-42ba-938b-459a4b184c09",
+                      "name": "Item not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ETag for conditional request",
+                            "key": "If-None-Match",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-bc8e85de-650c-42ba-938b-459a4b184c09"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:29:47.000Z",
+                  "updatedAt": "2026-07-28T03:29:47.000Z",
+                  "uid": "35240-e5697d1f-0d9d-4b11-a80c-4cbfec603955"
+                },
+                {
+                  "name": "Wikidata Update a Wikidata Item",
+                  "id": "ad3b7c1b-8f67-455a-883b-ead30b1bc6b1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "editpage createeditmovepage",
+                          "type": "string"
+                        },
+                        {
+                          "key": "accessTokenUrl",
+                          "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "authorization_code",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/items/:item_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "items",
+                        ":item_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ba10aa7c-ccc0-4f17-8946-d0c2f4e16d4d",
+                          "key": "item_id",
+                          "value": "Q80",
+                          "description": "(Required) Wikidata item ID"
+                        }
+                      ]
+                    },
+                    "description": "Applies a JSON patch to update an item. Requires authentication via OAuth2 or bot password. Includes edit comment and tags."
+                  },
+                  "response": [
+                    {
+                      "id": "c6226d87-0b71-40a9-9a6b-d11c27bcd5d7",
+                      "name": "Item updated",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"Q339\",\n  \"type\": \"item\",\n  \"labels\": {\n    \"laboris_d6\": \"<string>\",\n    \"sunt1\": \"<string>\",\n    \"ea1\": \"<string>\",\n    \"eiusmod_c44\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"Lorema\": \"<string>\",\n    \"incididunt5d\": \"<string>\",\n    \"irure_520\": \"<string>\"\n  },\n  \"aliases\": {\n    \"deserunt97c\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"consequat__2b\": [\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P698\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"novalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P83944439\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"somevalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"sitelinks\": {\n    \"in7c\": {\n      \"title\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"badges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-c6226d87-0b71-40a9-9a6b-d11c27bcd5d7"
+                    },
+                    {
+                      "id": "fc9279d6-3049-4026-85d8-529aa0ac8a2c",
+                      "name": "Invalid patch",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-fc9279d6-3049-4026-85d8-529aa0ac8a2c"
+                    },
+                    {
+                      "id": "7b11d7a2-8440-4688-8565-ef229581efed",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-7b11d7a2-8440-4688-8565-ef229581efed"
+                    },
+                    {
+                      "id": "d7eaaaa6-b3fd-416e-8ee7-4e4ac7476146",
+                      "name": "Forbidden (permissions insufficient)",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-d7eaaaa6-b3fd-416e-8ee7-4e4ac7476146"
+                    },
+                    {
+                      "id": "e13b7157-bb9b-422c-b3f9-0e7032e7a52c",
+                      "name": "Edit conflict \u2014 base revision mismatch",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"patch\": [\n    {\n      \"op\": \"move\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    },\n    {\n      \"op\": \"copy\",\n      \"path\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value for add/replace operations\"\n      },\n      \"from\": \"<string>\"\n    }\n  ],\n  \"comment\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bot\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/items/:item_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "items",
+                            ":item_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "item_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:29:47.000Z",
+                      "updatedAt": "2026-07-28T03:29:47.000Z",
+                      "uid": "35240-e13b7157-bb9b-422c-b3f9-0e7032e7a52c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:29:47.000Z",
+                  "updatedAt": "2026-07-28T03:29:47.000Z",
+                  "uid": "35240-ad3b7c1b-8f67-455a-883b-ead30b1bc6b1"
+                }
+              ],
+              "id": "3fc3c9dc-d8b7-40f3-b60b-8113b443cbaf",
+              "createdAt": "2026-07-28T03:29:47.000Z",
+              "updatedAt": "2026-07-28T03:29:47.000Z",
+              "uid": "35240-3fc3c9dc-d8b7-40f3-b60b-8113b443cbaf"
+            },
+            {
+              "name": "Wikidata Create a New Wikidata Item",
+              "id": "5ad54634-cd1a-4914-a844-374bdfd776b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "editpage createeditmovepage",
+                      "type": "string"
+                    },
+                    {
+                      "key": "accessTokenUrl",
+                      "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "authorization_code",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"labels\": {\n    \"sint09b\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"incididunt78e\": \"<string>\",\n    \"Duis_f\": \"<string>\",\n    \"amet9\": \"<string>\",\n    \"ex9_\": \"<string>\"\n  },\n  \"aliases\": {\n    \"esse_a19\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"irure_42\": [\n      {\n        \"property\": {\n          \"id\": \"P761\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P0038613264\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"labore_ec\": [\n      {\n        \"property\": {\n          \"id\": \"P41616900910\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P381\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"non__\": [\n      {\n        \"property\": {\n          \"id\": \"P459153\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P1\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ]\n  },\n  \"comment\": \"<string>\",\n  \"bot\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/entities/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entities",
+                    "items"
+                  ]
+                },
+                "description": "Creates a new Wikidata item with provided labels, descriptions, aliases, and statements."
+              },
+              "response": [
+                {
+                  "id": "3317e0ac-1c18-41bb-80bd-f8e706e9db31",
+                  "name": "Item created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"labels\": {\n    \"sint09b\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"incididunt78e\": \"<string>\",\n    \"Duis_f\": \"<string>\",\n    \"amet9\": \"<string>\",\n    \"ex9_\": \"<string>\"\n  },\n  \"aliases\": {\n    \"esse_a19\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"irure_42\": [\n      {\n        \"property\": {\n          \"id\": \"P761\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P0038613264\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"labore_ec\": [\n      {\n        \"property\": {\n          \"id\": \"P41616900910\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P381\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"non__\": [\n      {\n        \"property\": {\n          \"id\": \"P459153\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P1\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ]\n  },\n  \"comment\": \"<string>\",\n  \"bot\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"Q339\",\n  \"type\": \"item\",\n  \"labels\": {\n    \"laboris_d6\": \"<string>\",\n    \"sunt1\": \"<string>\",\n    \"ea1\": \"<string>\",\n    \"eiusmod_c44\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"Lorema\": \"<string>\",\n    \"incididunt5d\": \"<string>\",\n    \"irure_520\": \"<string>\"\n  },\n  \"aliases\": {\n    \"deserunt97c\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"consequat__2b\": [\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P698\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"novalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P83944439\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"qualifiers\": [\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"somevalue\",\n              \"content\": \"<string>\"\n            }\n          },\n          {\n            \"property\": {\n              \"id\": \"<string>\"\n            },\n            \"value\": {\n              \"type\": \"value\",\n              \"content\": \"<string>\"\n            }\n          }\n        ],\n        \"references\": [\n          {\n            \"hash\": \"<string>\"\n          },\n          {\n            \"hash\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"sitelinks\": {\n    \"in7c\": {\n      \"title\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"badges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T03:29:47.000Z",
+                  "updatedAt": "2026-07-28T03:29:47.000Z",
+                  "uid": "35240-3317e0ac-1c18-41bb-80bd-f8e706e9db31"
+                },
+                {
+                  "id": "52cddc11-3b7c-4b9d-a3c0-3eb67e450128",
+                  "name": "Invalid item data",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"labels\": {\n    \"sint09b\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"incididunt78e\": \"<string>\",\n    \"Duis_f\": \"<string>\",\n    \"amet9\": \"<string>\",\n    \"ex9_\": \"<string>\"\n  },\n  \"aliases\": {\n    \"esse_a19\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"irure_42\": [\n      {\n        \"property\": {\n          \"id\": \"P761\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P0038613264\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"labore_ec\": [\n      {\n        \"property\": {\n          \"id\": \"P41616900910\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P381\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"non__\": [\n      {\n        \"property\": {\n          \"id\": \"P459153\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P1\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ]\n  },\n  \"comment\": \"<string>\",\n  \"bot\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:29:47.000Z",
+                  "updatedAt": "2026-07-28T03:29:47.000Z",
+                  "uid": "35240-52cddc11-3b7c-4b9d-a3c0-3eb67e450128"
+                },
+                {
+                  "id": "c2875636-76ea-4543-8e75-e53036213c7c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"labels\": {\n    \"sint09b\": \"<string>\"\n  },\n  \"descriptions\": {\n    \"incididunt78e\": \"<string>\",\n    \"Duis_f\": \"<string>\",\n    \"amet9\": \"<string>\",\n    \"ex9_\": \"<string>\"\n  },\n  \"aliases\": {\n    \"esse_a19\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"statements\": {\n    \"irure_42\": [\n      {\n        \"property\": {\n          \"id\": \"P761\"\n        },\n        \"value\": {\n          \"type\": \"somevalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P0038613264\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"labore_ec\": [\n      {\n        \"property\": {\n          \"id\": \"P41616900910\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P381\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ],\n    \"non__\": [\n      {\n        \"property\": {\n          \"id\": \"P459153\"\n        },\n        \"value\": {\n          \"type\": \"novalue\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      },\n      {\n        \"property\": {\n          \"id\": \"P1\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"<string>\"\n        },\n        \"rank\": \"normal\",\n        \"comment\": \"<string>\"\n      }\n    ]\n  },\n  \"comment\": \"<string>\",\n  \"bot\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:29:47.000Z",
+                  "updatedAt": "2026-07-28T03:29:47.000Z",
+                  "uid": "35240-c2875636-76ea-4543-8e75-e53036213c7c"
+                }
+              ],
+              "createdAt": "2026-07-28T03:29:47.000Z",
+              "updatedAt": "2026-07-28T03:29:47.000Z",
+              "uid": "35240-5ad54634-cd1a-4914-a844-374bdfd776b9"
+            }
+          ],
+          "id": "a97ecf40-1de4-4be2-b041-7e3fe7e9373b",
+          "createdAt": "2026-07-28T03:29:47.000Z",
+          "updatedAt": "2026-07-28T03:29:47.000Z",
+          "uid": "35240-a97ecf40-1de4-4be2-b041-7e3fe7e9373b"
+        }
+      ],
+      "id": "aeed15ac-9615-47f9-bec4-0a2d493eaf0d",
+      "createdAt": "2026-07-28T03:29:47.000Z",
+      "updatedAt": "2026-07-28T03:29:47.000Z",
+      "uid": "35240-aeed15ac-9615-47f9-bec4-0a2d493eaf0d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    }
+  ]
+}
