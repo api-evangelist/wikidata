@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wikidata REST API & MediaWiki Descriptions Statements API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get Statements for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/statements",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "property",
+                "value": "P31",
+                "type": "query",
+                "description": "Filter statements by property ID"
+              }
+            ]
+          },
+          "docs": "Returns all statements (claims) for a Wikidata item, optionally filtered by property. Statements include main snak, qualifiers, and references."
+        },
+        {
+          "info": {
+            "name": "Wikidata Add a Statement to an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/statements",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Adds a new statement (claim) to a Wikidata item."
+        },
+        {
+          "info": {
+            "name": "Wikidata Get a Single Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/statements/:statement_id",
+            "params": [
+              {
+                "name": "statement_id",
+                "value": "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9",
+                "type": "path",
+                "description": "Statement ID (Q{itemId}${guid})"
+              }
+            ]
+          },
+          "docs": "Returns a single statement by its globally unique statement ID."
+        },
+        {
+          "info": {
+            "name": "Wikidata Delete a Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/statements/:statement_id",
+            "params": [
+              {
+                "name": "statement_id",
+                "value": "Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Removes a statement from its parent item."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

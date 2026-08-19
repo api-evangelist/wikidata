@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wikidata REST API & MediaWiki Descriptions Properties API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Wikidata Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/properties/:property_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "P31",
+                "type": "path",
+                "description": "Wikidata property ID"
+              }
+            ]
+          },
+          "docs": "Returns a Wikidata property (P-entity) with labels, descriptions, and statements."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

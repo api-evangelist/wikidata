@@ -1,0 +1,403 @@
+{
+  "item": [
+    {
+      "id": "b957e009-f6af-46a0-a453-042961ac664f",
+      "name": "Labels",
+      "description": {
+        "content": "Label management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12e0ee69-d08f-421d-a5b8-7874ec8c628b",
+          "name": "Wikidata Get a Label for an Item",
+          "request": {
+            "name": "Wikidata Get a Label for an Item",
+            "description": {
+              "content": "Returns the label for a Wikidata item in a specific language.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "items",
+                ":item_id",
+                "labels",
+                ":language_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "item_id",
+                  "description": "(Required) Wikidata item ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "language_code",
+                  "description": "(Required) BCP 47 language code"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "14e33ba3-2871-4425-ab7d-504af867c4a2",
+              "name": "Label value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "labels",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"Q42\",\n  \"type\": \"item\",\n  \"labels\": {\n    \"en\": \"Douglas Adams\",\n    \"fr\": \"Douglas Adams\",\n    \"de\": \"Douglas Adams\"\n  },\n  \"descriptions\": {\n    \"en\": \"English author and humorist\",\n    \"fr\": \"auteur et humoriste anglais\"\n  },\n  \"aliases\": {\n    \"en\": [\n      \"DNA\",\n      \"Douglas Noel Adams\"\n    ]\n  },\n  \"statements\": {\n    \"P31\": [\n      {\n        \"id\": \"Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P31\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"Q5\"\n        }\n      }\n    ]\n  },\n  \"sitelinks\": {\n    \"enwiki\": {\n      \"title\": \"Douglas Adams\",\n      \"url\": \"https://en.wikipedia.org/wiki/Douglas_Adams\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eab79c64-ad2c-4274-90cb-159bf9076a76",
+              "name": "Label not found for this language",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "labels",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "566b7ef3-6ad5-4653-92b0-b53c49bbed48",
+          "name": "Wikidata Set a Label for an Item",
+          "request": {
+            "name": "Wikidata Set a Label for an Item",
+            "description": {
+              "content": "Sets or replaces the label for a Wikidata item in the specified language.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "items",
+                ":item_id",
+                "labels",
+                ":language_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "item_id",
+                  "description": "(Required) Wikidata item ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "language_code",
+                  "description": "(Required) BCP 47 language code"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "editpage createeditmovepage"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8bcb49b3-6419-42d4-aa5e-1ed7421b937c",
+              "name": "Label updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "labels",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "502d935e-9176-45bd-9c95-a0641ae296ec",
+              "name": "Label created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "labels",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"bot\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "887190b8-af8c-448c-9ade-2895aef29f12",
+    "name": "Wikidata REST API & MediaWiki Descriptions Labels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+      "type": "text/plain"
+    }
+  }
+}

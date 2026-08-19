@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wikidata REST API & MediaWiki Descriptions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Descriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Description for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/descriptions/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ]
+          },
+          "docs": "Returns the description for a Wikidata item in a specific language."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wikidata REST API & MediaWiki Descriptions Labels API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Wikidata Get a Label for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/labels/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ]
+          },
+          "docs": "Returns the label for a Wikidata item in a specific language."
+        },
+        {
+          "info": {
+            "name": "Wikidata Set a Label for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.wikidata.org/w/rest.php/wikibase/v0/entities/items/:item_id/labels/:language_code",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "Q42",
+                "type": "path",
+                "description": "Wikidata item ID"
+              },
+              {
+                "name": "language_code",
+                "value": "en",
+                "type": "path",
+                "description": "BCP 47 language code"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/authorize",
+              "accessTokenUrl": "https://www.mediawiki.org/w/index.php?title=Special:OAuth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Sets or replaces the label for a Wikidata item in the specified language."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

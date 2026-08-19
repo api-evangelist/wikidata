@@ -1,0 +1,188 @@
+{
+  "item": [
+    {
+      "id": "d92d80b8-1c74-4a32-bb67-05abb02616fa",
+      "name": "Descriptions",
+      "description": {
+        "content": "Description management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c1c62e7-2f9e-4849-96b6-8aa961a77947",
+          "name": "Wikidata Get a Description for an Item",
+          "request": {
+            "name": "Wikidata Get a Description for an Item",
+            "description": {
+              "content": "Returns the description for a Wikidata item in a specific language.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "items",
+                ":item_id",
+                "descriptions",
+                ":language_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "item_id",
+                  "description": "(Required) Wikidata item ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "language_code",
+                  "description": "(Required) BCP 47 language code"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c259363-8807-4adc-b791-99dd52804a30",
+              "name": "Description value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "descriptions",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"Q42\",\n  \"type\": \"item\",\n  \"labels\": {\n    \"en\": \"Douglas Adams\",\n    \"fr\": \"Douglas Adams\",\n    \"de\": \"Douglas Adams\"\n  },\n  \"descriptions\": {\n    \"en\": \"English author and humorist\",\n    \"fr\": \"auteur et humoriste anglais\"\n  },\n  \"aliases\": {\n    \"en\": [\n      \"DNA\",\n      \"Douglas Noel Adams\"\n    ]\n  },\n  \"statements\": {\n    \"P31\": [\n      {\n        \"id\": \"Q42$F078E5B3-F9A8-480E-B7AC-D97778CBBEF9\",\n        \"rank\": \"normal\",\n        \"property\": {\n          \"id\": \"P31\"\n        },\n        \"value\": {\n          \"type\": \"value\",\n          \"content\": \"Q5\"\n        }\n      }\n    ]\n  },\n  \"sitelinks\": {\n    \"enwiki\": {\n      \"title\": \"Douglas Adams\",\n      \"url\": \"https://en.wikipedia.org/wiki/Douglas_Adams\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5de9e753-706f-4157-99e6-975fa0d92b48",
+              "name": "Description not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "items",
+                    ":item_id",
+                    "descriptions",
+                    ":language_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "item_id",
+                      "description": "(Required) Wikidata item ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "language_code",
+                      "description": "(Required) BCP 47 language code"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ae525eae-03ff-4feb-8e52-f7a80808104e",
+    "name": "Wikidata REST API & MediaWiki Descriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+      "type": "text/plain"
+    }
+  }
+}

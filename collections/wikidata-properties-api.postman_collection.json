@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "160f0e44-84e7-4e2c-ad86-c45f9adaac6f",
+      "name": "Properties",
+      "description": {
+        "content": "Wikidata property (P-entity) operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9c368868-2883-48a1-b86f-eb4f97b02b0e",
+          "name": "Wikidata Get a Wikidata Property",
+          "request": {
+            "name": "Wikidata Get a Wikidata Property",
+            "description": {
+              "content": "Returns a Wikidata property (P-entity) with labels, descriptions, and statements.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "properties",
+                ":property_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "property_id",
+                  "description": "(Required) Wikidata property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f513c45b-cf89-43df-adda-26c167e97e39",
+              "name": "Property details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "properties",
+                    ":property_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "property_id",
+                      "description": "(Required) Wikidata property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"P31\",\n  \"type\": \"property\",\n  \"datatype\": \"wikibase-item\",\n  \"labels\": {\n    \"en\": \"instance of\"\n  },\n  \"descriptions\": {\n    \"en\": \"that class of which this subject is a particular example and member\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95bacb47-13f1-4669-8d71-faea4f50b0e9",
+              "name": "Property not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "properties",
+                    ":property_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "property_id",
+                      "description": "(Required) Wikidata property ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.wikidata.org/w/rest.php/wikibase/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32e8b2f6-e7b5-41f9-ad80-6f0110a4dac5",
+    "name": "Wikidata REST API & MediaWiki Descriptions Properties API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wikidata provides multiple APIs for accessing its structured knowledge graph. The Wikibase REST API (OpenAPI-based) provides entity read/write operations. The MediaWiki Action API provides entity retrieval, editing, and search via the wbgetentities, wbsearchentities, and wbeditentity actions. The SPARQL endpoint at query.wikidata.org supports SPARQL 1.1 queries.\n\nContact Support:\n Name: Wikidata Support",
+      "type": "text/plain"
+    }
+  }
+}
