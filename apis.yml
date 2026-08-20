@@ -46,6 +46,10 @@ apis:
   baseURL: https://www.wikidata.org/w/api.php
   tags:
   - MediaWiki
+  - Entity Retrieval
+  - Search
+  tags_raw:
+  - MediaWiki
   - Batch Operations
   - Entity Retrieval
   - Search
@@ -104,6 +108,11 @@ apis:
   baseURL: https://stream.wikimedia.org/v2/stream
   tags:
   - Event Streaming
+  - Real-Time
+  - Server-Sent Events
+  - Change Detection
+  tags_raw:
+  - Event Streaming
   - Real-time
   - Server-Sent Events
   - Change Detection
@@ -134,6 +143,8 @@ apis:
   humanURL: https://www.wikidata.org/wiki/Wikidata:REST_API
   baseURL: https://www.wikidata.org/w/rest.php/wikibase/v0
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
