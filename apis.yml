@@ -8,6 +8,19 @@ description: >-
   individual entity access in multiple RDF formats, a real-time Server-Sent Events stream for change monitoring, and
   full database dumps for bulk data processing.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -212,6 +225,12 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
 common:
+  - type: IssueTracker
+    url: https://github.com/wikimedia/mediawiki/issues
+  - type: SecurityPolicy
+    url: https://github.com/wikimedia/mediawiki/blob/master/SECURITY
+  - type: CodeOfConduct
+    url: https://github.com/wikimedia/mediawiki/blob/master/CODE_OF_CONDUCT.md
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/wikidata/overview
   - type: AgenticAccess
