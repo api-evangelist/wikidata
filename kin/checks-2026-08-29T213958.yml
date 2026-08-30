@@ -1,17 +1,17 @@
 ---
 kin_checks:
   slug: wikidata
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  schema_version: 0.16.0
+  scored_at: '2026-08-29'
+  run_ts: 2026-08-29T213958
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.15.1.yml; counts below let you verify that.
+    in rubric/scoring-0.16.0.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 51
+    earned: 54
     partial: 14
-    missed: 42
-    na: 23
+    missed: 43
+    na: 19
   checks:
   - id: well_known_published
     status: missed
@@ -44,8 +44,6 @@ kin_checks:
     status: missed
   - id: deprecation_policy
     status: missed
-  - id: security_disclosure
-    status: missed
   - id: webhooks_advertised
     status: missed
   - id: roadmap_present
@@ -73,6 +71,10 @@ kin_checks:
   - id: reg_compliance_published
     status: missed
   - id: reg_named_standard_conformance
+    status: missed
+  - id: os_contribution_guide
+    status: missed
+  - id: os_releases
     status: missed
   - id: reversibility_documented
     status: missed
