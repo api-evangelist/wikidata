@@ -12,7 +12,7 @@
       "source": "https://www.wikidata.org/w/index.php?title=Special:RecentChanges&feed=atom",
       "feed_url": "https://www.wikidata.org/w/index.php?title=Special:RecentChanges&feed=atom",
       "title": "",
-      "saved": 50,
+      "saved": 44,
       "method": "feed"
     },
     {
@@ -23,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 774,
-  "fetched": "2026-08-22T20:20:02Z"
+  "post_count": 876,
+  "fetched": "2026-08-30T22:33:40Z"
 }
