@@ -1,11 +1,7 @@
 {
   "provider": "wikidata",
   "sources": [
-    "wikidata-descriptions-api-openapi.yml",
-    "wikidata-items-api-openapi.yml",
-    "wikidata-labels-api-openapi.yml",
-    "wikidata-properties-api-openapi.yml",
-    "wikidata-statements-api-openapi.yml"
+    "_original/wikidata-mediawiki-openapi.yml"
   ],
   "outputs": [
     "wikidata-descriptions-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "wikidata-mediawiki-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "wikidata-descriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wikidata-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wikidata-labels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wikidata-properties-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wikidata-statements-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
