@@ -196,49 +196,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Statement:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Globally unique statement ID
-        rank:
-          type: string
-          enum:
-          - preferred
-          - normal
-          - deprecated
-        property:
-          type: object
-          properties:
-            id:
-              type: string
-              pattern: ^P\d+$
-        value:
-          $ref: '#/components/schemas/DataValue'
-        qualifiers:
-          type: array
-          items:
-            type: object
-            properties:
-              property:
-                type: object
-                properties:
-                  id:
-                    type: string
-              value:
-                $ref: '#/components/schemas/DataValue'
-        references:
-          type: array
-          items:
-            type: object
-            properties:
-              hash:
-                type: string
-              parts:
-                type: array
-                items:
-                  type: object
     DataValue:
       type: object
       properties:
@@ -288,6 +245,49 @@ components:
             type: object
         comment:
           type: string
+    Statement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique statement ID
+        rank:
+          type: string
+          enum:
+          - preferred
+          - normal
+          - deprecated
+        property:
+          type: object
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        qualifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: object
+                properties:
+                  id:
+                    type: string
+              value:
+                $ref: '#/components/schemas/DataValue'
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              hash:
+                type: string
+              parts:
+                type: array
+                items:
+                  type: object
   parameters:
     ItemId:
       name: item_id

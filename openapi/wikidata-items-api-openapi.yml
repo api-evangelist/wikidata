@@ -210,46 +210,60 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Sitelink:
+    DataValue:
       type: object
       properties:
-        title:
+        type:
           type: string
-          description: Wikipedia article title
-        url:
-          type: string
-          format: uri
-        badges:
+          enum:
+          - value
+          - somevalue
+          - novalue
+        content:
+          description: Value content — depends on property datatype
+          oneOf:
+          - type: string
+          - type: number
+          - type: object
+          - type: 'null'
+    PatchRequest:
+      type: object
+      required:
+      - patch
+      properties:
+        patch:
           type: array
+          description: JSON Patch operations (RFC 6902)
           items:
-            type: string
-            description: Featured/Good article badges
-    ItemCreate:
-      type: object
-      properties:
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-        descriptions:
-          type: object
-          additionalProperties:
-            type: string
-        aliases:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        statements:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/StatementCreate'
+            type: object
+            required:
+            - op
+            - path
+            properties:
+              op:
+                type: string
+                enum:
+                - add
+                - remove
+                - replace
+                - move
+                - copy
+                - test
+              path:
+                type: string
+              value:
+                description: New value for add/replace operations
+              from:
+                type: string
+                description: Source path for move/copy operations
         comment:
           type: string
           description: Edit summary
+        tags:
+          type: array
+          items:
+            type: string
+          description: Change tags to apply
         bot:
           type: boolean
           default: false
@@ -297,22 +311,82 @@ components:
           description: Sitelinks to Wikipedia and Wikimedia projects
           additionalProperties:
             $ref: '#/components/schemas/Sitelink'
-    DataValue:
+    Sitelink:
       type: object
       properties:
-        type:
+        title:
+          type: string
+          description: Wikipedia article title
+        url:
+          type: string
+          format: uri
+        badges:
+          type: array
+          items:
+            type: string
+            description: Featured/Good article badges
+    StatementCreate:
+      type: object
+      required:
+      - property
+      - value
+      properties:
+        property:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        rank:
           type: string
           enum:
-          - value
-          - somevalue
-          - novalue
-        content:
-          description: Value content — depends on property datatype
-          oneOf:
-          - type: string
-          - type: number
-          - type: object
-          - type: 'null'
+          - preferred
+          - normal
+          - deprecated
+          default: normal
+        qualifiers:
+          type: array
+          items:
+            type: object
+        references:
+          type: array
+          items:
+            type: object
+        comment:
+          type: string
+    ItemCreate:
+      type: object
+      properties:
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+        aliases:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        statements:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/StatementCreate'
+        comment:
+          type: string
+          description: Edit summary
+        bot:
+          type: boolean
+          default: false
     Statement:
       type: object
       properties:
@@ -356,87 +430,7 @@ components:
                 type: array
                 items:
                   type: object
-    StatementCreate:
-      type: object
-      required:
-      - property
-      - value
-      properties:
-        property:
-          type: object
-          required:
-          - id
-          properties:
-            id:
-              type: string
-              pattern: ^P\d+$
-        value:
-          $ref: '#/components/schemas/DataValue'
-        rank:
-          type: string
-          enum:
-          - preferred
-          - normal
-          - deprecated
-          default: normal
-        qualifiers:
-          type: array
-          items:
-            type: object
-        references:
-          type: array
-          items:
-            type: object
-        comment:
-          type: string
-    PatchRequest:
-      type: object
-      required:
-      - patch
-      properties:
-        patch:
-          type: array
-          description: JSON Patch operations (RFC 6902)
-          items:
-            type: object
-            required:
-            - op
-            - path
-            properties:
-              op:
-                type: string
-                enum:
-                - add
-                - remove
-                - replace
-                - move
-                - copy
-                - test
-              path:
-                type: string
-              value:
-                description: New value for add/replace operations
-              from:
-                type: string
-                description: Source path for move/copy operations
-        comment:
-          type: string
-          description: Edit summary
-        tags:
-          type: array
-          items:
-            type: string
-          description: Change tags to apply
-        bot:
-          type: boolean
-          default: false
   parameters:
-    IfNoneMatch:
-      name: If-None-Match
-      in: header
-      schema:
-        type: string
-      description: ETag for conditional request
     ItemId:
       name: item_id
       in: path
@@ -446,6 +440,12 @@ components:
         type: string
         pattern: ^Q\d+$
       example: Q42
+    IfNoneMatch:
+      name: If-None-Match
+      in: header
+      schema:
+        type: string
+      description: ETag for conditional request
   securitySchemes:
     OAuth2:
       type: oauth2
