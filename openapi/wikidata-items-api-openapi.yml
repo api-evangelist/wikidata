@@ -210,6 +210,49 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Statement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique statement ID
+        rank:
+          type: string
+          enum:
+          - preferred
+          - normal
+          - deprecated
+        property:
+          type: object
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        qualifiers:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: object
+                properties:
+                  id:
+                    type: string
+              value:
+                $ref: '#/components/schemas/DataValue'
+        references:
+          type: array
+          items:
+            type: object
+            properties:
+              hash:
+                type: string
+              parts:
+                type: array
+                items:
+                  type: object
     Item:
       type: object
       properties:
@@ -254,78 +297,6 @@ components:
           description: Sitelinks to Wikipedia and Wikimedia projects
           additionalProperties:
             $ref: '#/components/schemas/Sitelink'
-    Statement:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Globally unique statement ID
-        rank:
-          type: string
-          enum:
-          - preferred
-          - normal
-          - deprecated
-        property:
-          type: object
-          properties:
-            id:
-              type: string
-              pattern: ^P\d+$
-        value:
-          $ref: '#/components/schemas/DataValue'
-        qualifiers:
-          type: array
-          items:
-            type: object
-            properties:
-              property:
-                type: object
-                properties:
-                  id:
-                    type: string
-              value:
-                $ref: '#/components/schemas/DataValue'
-        references:
-          type: array
-          items:
-            type: object
-            properties:
-              hash:
-                type: string
-              parts:
-                type: array
-                items:
-                  type: object
-    ItemCreate:
-      type: object
-      properties:
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-        descriptions:
-          type: object
-          additionalProperties:
-            type: string
-        aliases:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        statements:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/StatementCreate'
-        comment:
-          type: string
-          description: Edit summary
-        bot:
-          type: boolean
-          default: false
     DataValue:
       type: object
       properties:
@@ -375,6 +346,20 @@ components:
             type: object
         comment:
           type: string
+    Sitelink:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Wikipedia article title
+        url:
+          type: string
+          format: uri
+        badges:
+          type: array
+          items:
+            type: string
+            description: Featured/Good article badges
     PatchRequest:
       type: object
       required:
@@ -416,20 +401,35 @@ components:
         bot:
           type: boolean
           default: false
-    Sitelink:
+    ItemCreate:
       type: object
       properties:
-        title:
-          type: string
-          description: Wikipedia article title
-        url:
-          type: string
-          format: uri
-        badges:
-          type: array
-          items:
+        labels:
+          type: object
+          additionalProperties:
             type: string
-            description: Featured/Good article badges
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+        aliases:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        statements:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/StatementCreate'
+        comment:
+          type: string
+          description: Edit summary
+        bot:
+          type: boolean
+          default: false
   parameters:
     IfNoneMatch:
       name: If-None-Match
