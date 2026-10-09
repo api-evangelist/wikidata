@@ -228,6 +228,10 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/wikidata/refs/heads/main/json-ld/wikidata-context.jsonld
 common:
+  - type: Plans
+    url: plans/wikidata-plans-pricing.yml
+  - type: FinOps
+    url: finops/wikidata-finops.yml
   - type: IssueTracker
     url: https://github.com/wikimedia/mediawiki/issues
   - type: SecurityPolicy
