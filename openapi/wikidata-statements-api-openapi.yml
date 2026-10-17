@@ -196,55 +196,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    DataValue:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - value
-          - somevalue
-          - novalue
-        content:
-          description: Value content — depends on property datatype
-          oneOf:
-          - type: string
-          - type: number
-          - type: object
-          - type: 'null'
-    StatementCreate:
-      type: object
-      required:
-      - property
-      - value
-      properties:
-        property:
-          type: object
-          required:
-          - id
-          properties:
-            id:
-              type: string
-              pattern: ^P\d+$
-        value:
-          $ref: '#/components/schemas/DataValue'
-        rank:
-          type: string
-          enum:
-          - preferred
-          - normal
-          - deprecated
-          default: normal
-        qualifiers:
-          type: array
-          items:
-            type: object
-        references:
-          type: array
-          items:
-            type: object
-        comment:
-          type: string
     Statement:
       type: object
       properties:
@@ -288,6 +239,55 @@ components:
                 type: array
                 items:
                   type: object
+    StatementCreate:
+      type: object
+      required:
+      - property
+      - value
+      properties:
+        property:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              pattern: ^P\d+$
+        value:
+          $ref: '#/components/schemas/DataValue'
+        rank:
+          type: string
+          enum:
+          - preferred
+          - normal
+          - deprecated
+          default: normal
+        qualifiers:
+          type: array
+          items:
+            type: object
+        references:
+          type: array
+          items:
+            type: object
+        comment:
+          type: string
+    DataValue:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - value
+          - somevalue
+          - novalue
+        content:
+          description: Value content — depends on property datatype
+          oneOf:
+          - type: string
+          - type: number
+          - type: object
+          - type: 'null'
   parameters:
     ItemId:
       name: item_id

@@ -210,6 +210,47 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    PatchRequest:
+      type: object
+      required:
+      - patch
+      properties:
+        patch:
+          type: array
+          description: JSON Patch operations (RFC 6902)
+          items:
+            type: object
+            required:
+            - op
+            - path
+            properties:
+              op:
+                type: string
+                enum:
+                - add
+                - remove
+                - replace
+                - move
+                - copy
+                - test
+              path:
+                type: string
+              value:
+                description: New value for add/replace operations
+              from:
+                type: string
+                description: Source path for move/copy operations
+        comment:
+          type: string
+          description: Edit summary
+        tags:
+          type: array
+          items:
+            type: string
+          description: Change tags to apply
+        bot:
+          type: boolean
+          default: false
     Statement:
       type: object
       properties:
@@ -253,50 +294,6 @@ components:
                 type: array
                 items:
                   type: object
-    Item:
-      type: object
-      properties:
-        id:
-          type: string
-          pattern: ^Q\d+$
-          description: Wikidata item ID
-          example: Q42
-        type:
-          type: string
-          enum:
-          - item
-        labels:
-          type: object
-          description: Labels keyed by language code
-          additionalProperties:
-            type: string
-          example:
-            en: Douglas Adams
-            fr: Douglas Adams
-        descriptions:
-          type: object
-          description: Descriptions keyed by language code
-          additionalProperties:
-            type: string
-        aliases:
-          type: object
-          description: Aliases keyed by language code
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        statements:
-          type: object
-          description: Statements keyed by property ID
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/Statement'
-        sitelinks:
-          type: object
-          description: Sitelinks to Wikipedia and Wikimedia projects
-          additionalProperties:
-            $ref: '#/components/schemas/Sitelink'
     DataValue:
       type: object
       properties:
@@ -313,6 +310,35 @@ components:
           - type: number
           - type: object
           - type: 'null'
+    ItemCreate:
+      type: object
+      properties:
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        descriptions:
+          type: object
+          additionalProperties:
+            type: string
+        aliases:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        statements:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/StatementCreate'
+        comment:
+          type: string
+          description: Edit summary
+        bot:
+          type: boolean
+          default: false
     StatementCreate:
       type: object
       required:
@@ -360,83 +386,51 @@ components:
           items:
             type: string
             description: Featured/Good article badges
-    PatchRequest:
+    Item:
       type: object
-      required:
-      - patch
       properties:
-        patch:
-          type: array
-          description: JSON Patch operations (RFC 6902)
-          items:
-            type: object
-            required:
-            - op
-            - path
-            properties:
-              op:
-                type: string
-                enum:
-                - add
-                - remove
-                - replace
-                - move
-                - copy
-                - test
-              path:
-                type: string
-              value:
-                description: New value for add/replace operations
-              from:
-                type: string
-                description: Source path for move/copy operations
-        comment:
+        id:
           type: string
-          description: Edit summary
-        tags:
-          type: array
-          items:
-            type: string
-          description: Change tags to apply
-        bot:
-          type: boolean
-          default: false
-    ItemCreate:
-      type: object
-      properties:
+          pattern: ^Q\d+$
+          description: Wikidata item ID
+          example: Q42
+        type:
+          type: string
+          enum:
+          - item
         labels:
           type: object
+          description: Labels keyed by language code
           additionalProperties:
             type: string
+          example:
+            en: Douglas Adams
+            fr: Douglas Adams
         descriptions:
           type: object
+          description: Descriptions keyed by language code
           additionalProperties:
             type: string
         aliases:
           type: object
+          description: Aliases keyed by language code
           additionalProperties:
             type: array
             items:
               type: string
         statements:
           type: object
+          description: Statements keyed by property ID
           additionalProperties:
             type: array
             items:
-              $ref: '#/components/schemas/StatementCreate'
-        comment:
-          type: string
-          description: Edit summary
-        bot:
-          type: boolean
-          default: false
+              $ref: '#/components/schemas/Statement'
+        sitelinks:
+          type: object
+          description: Sitelinks to Wikipedia and Wikimedia projects
+          additionalProperties:
+            $ref: '#/components/schemas/Sitelink'
   parameters:
-    IfNoneMatch:
-      name: If-None-Match
-      in: header
-      schema:
-        type: string
-      description: ETag for conditional request
     ItemId:
       name: item_id
       in: path
@@ -446,6 +440,12 @@ components:
         type: string
         pattern: ^Q\d+$
       example: Q42
+    IfNoneMatch:
+      name: If-None-Match
+      in: header
+      schema:
+        type: string
+      description: ETag for conditional request
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -73,14 +73,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    LanguageCode:
-      name: language_code
-      in: path
-      required: true
-      description: BCP 47 language code
-      schema:
-        type: string
-      example: en
     ItemId:
       name: item_id
       in: path
@@ -90,6 +82,14 @@ components:
         type: string
         pattern: ^Q\d+$
       example: Q42
+    LanguageCode:
+      name: language_code
+      in: path
+      required: true
+      description: BCP 47 language code
+      schema:
+        type: string
+      example: en
   securitySchemes:
     OAuth2:
       type: oauth2
